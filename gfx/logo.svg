@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="419.15695"
+     inkscape:cy="541.83467"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1680"
+     inkscape:window-height="1026"
+     inkscape:window-x="1680"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2991"
+       transform="matrix(0.97650108,-0.21551253,0.21551253,0.97650108,-80.775239,76.986908)">
+      <rect
+         ry="25.911741"
+         y="296.76807"
+         x="103.03556"
+         height="224.25386"
+         width="419.21332"
+         id="rect2995"
+         style="fill:#f44800;fill-opacity:1;stroke:none" />
+      <flowRoot
+         transform="matrix(2.2086225,0,0,2.2086225,-198.68391,-419.40876)"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor"
+         id="flowRoot2985"
+         xml:space="preserve"><flowRegion
+           id="flowRegion2987"><rect
+             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor"
+             y="330.10312"
+             x="145.46196"
+             height="127.27917"
+             width="235.36557"
+             id="rect2989" /></flowRegion><flowPara
+           id="flowPara2993">Nathan's</flowPara></flowRoot>      <flowRoot
+         xml:space="preserve"
+         id="flowRoot3767"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor"
+         transform="matrix(2.2086225,0,0,2.2086225,-171.4098,-334.55595)"><flowRegion
+           id="flowRegion3769"><rect
+             id="rect3771"
+             width="235.36557"
+             height="127.27917"
+             x="145.46196"
+             y="330.10312"
+             style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor" /></flowRegion><flowPara
+           id="flowPara3773">Lessons</flowPara></flowRoot>    </g>
+  </g>
+</svg>

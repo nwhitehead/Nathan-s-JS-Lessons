@@ -1,0 +1,54 @@
+{% extends "lesson.html" %}
+
+{% block title %}How do Prototypes Work?{% endblock %}
+
+{% block description %}
+<p>
+JavaScript, like many other languages, has objects.  But the way
+objects inherit properties is through <i>prototypes</i>, which is
+a bit different than classes.  Let's see how it works.
+</p>
+
+<div class="hr"></div>
+
+<p>Here's how you create an empty object.  Gotta start somewhere.</p>
+
+<textarea class="demo">var empty = {};</textarea>
+
+<p>Objects can also contain properties.  A property is a name and a
+value.  Here's an apple object with some properties.
+</p>
+
+<textarea class="demo">var an_apple = {
+    fruit: "apple",
+    color: "red",
+    tartness: 3
+};</textarea>
+
+<p class="problem">Now you try.  Declare an object <tt>my_apple</tt> 
+that has property <tt>fruit</tt> that is <tt>"apple"</tt>,
+property <tt>color</tt> of <tt>"green"</tt>, and any level of
+<tt>tartness</tt> you desire.  Click "submit" when you think you have it.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var my_apple = ';
+add_bool_test('typeof my_apple === "object"', 'my_apple is an object');
+add_assert_test('my_apple.fruit', '"apple"');
+add_assert_test('my_apple.color', '"green"');
+add_bool_test('typeof my_apple.tartness === "number"', 'my_apple.tartness is a number');
+{% endblock %}
+
+{#
+var my_apple = {
+    fruit: "apple",
+    color: "green",
+    tartness: 7
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '2010';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}

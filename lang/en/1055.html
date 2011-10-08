@@ -1,0 +1,94 @@
+{% extends "lesson.html" %}
+
+{% block title %}Function Scope{% endblock %}
+
+{% block description %}
+<p>
+Many languages have <i>block scope</i>, which means that variables
+declared at the start of a block like an <tt>if</tt> or a <tt>for</tt> loop 
+are valid within that block.  JavaScript is a bit different, all variables
+have <i>function scope</i>.</p>
+
+<p>This means that <i>all</i> the variables declared in a function
+are available everywhere in the function.  Here's an example that
+shows how this can be a little surprising.</p>
+
+<textarea class="demo">var cow = "purple"; // just a random cow
+
+var f = function (x) {
+    var r = 0;
+    cow = "glue";
+    if (x > 3) {
+        var cow = 1; // a local variable
+        r = 7;
+    }
+    return r;
+};
+
+var z = f(2); // ...</textarea>
+
+<p>Does <tt>cow</tt> get turned into <tt>"glue"</tt> when you call <tt>f(2)</tt>?
+No, <tt>cow</tt> is safe in the above code because the <tt>var cow</tt>
+declaration inside the <tt>if</tt> block applies to the <i>entire function</i>.
+It means that <tt>cow</tt> is a local variable for the entire function.
+</p>
+
+<p>To satisfy your morbid bovine curiosities, here is the version that <i>does</i>
+turn <tt>cow</tt> into <tt>glue</tt>.</p>
+
+<textarea class="demo">var cow = "purple"; // just a random cow
+
+var f = function (x) {
+    var r = 0;
+    cow = "glue";
+    if (x > 3) {
+        r = 7;
+    }
+    return r;
+};
+
+var z = f(2); // poor cow</textarea>
+
+<p>Because of this surprising behavior, when you write functions you
+should always declare all your variables right at the start so you
+don't get confused.  Here's an example that declares a few variables
+the right way.</p>
+
+<textarea class="demo">var mean = function (a, b) {
+    var sum, product, diff;
+    sum = a + b;
+    product = a * b;
+    diff = sum - product;
+    return diff;
+};</textarea>
+
+<p class="problem">Define a function named <tt>callFunc</tt> that 
+takes one argument, a function <tt>f</tt>.
+It should return an array containing the values <tt>f(0)</tt>,
+<tt>f(0)</tt>, <tt>f(1)</tt>, <tt>f(1)</tt>.  You can only call <tt>f</tt> twice.
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var callFunc = function (f) {' + nl + '    ' + nl + '};';
+test_prelude = 'var count = 0;\nvar f = function (x) {\n    count += 1;\n    return x + 2;\n};';
+add_bool_test('myTypeOf(callFunc) === "function"', 'callFunc is a function');
+add_bool_test('myTypeOf(callFunc(f)) === "array"', 'callFunc(f) is an array');
+add_bool_test('count <= 2');
+add_bool_test('callFunc(f).compareArrays([2, 2, 3, 3])');
+add_bool_test('count <= 4');
+{% endblock %}
+
+{#
+var callFunc = function (f) {
+    var f0, f1;
+    f0 = f(0);
+    f1 = f(1);
+    return [f0, f0, f1, f1];
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1060';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

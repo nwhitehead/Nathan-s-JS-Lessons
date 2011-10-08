@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<style type='text/css'>@import
+url('http://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css');</style>
+<script src='http://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js'
+type='text/javascript'></script>
+<script type="text/javascript" charset="utf-8">
+ BAROMETER.load('c49eMAsazkrTOjSWzXzLx');
+</script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24710646-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+{% endblock scripts %}
+
+<title>{% block title %}JavaScript Tutorial{% endblock title %}</title>
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/css/base.css" />
+{% endblock style %}
+</head>
+
+<body>
+
+{% block header %}
+<div class="topblock">
+    <img src="/gfx/logo2.png" class="logo" />
+    {% if user %}
+        <p class="top">{{ user.nickname }}
+        [<a href="{{ logout }}"><b>sign out</b></a>]</p>
+    {% else %}
+        <p class="top">[<a href="{{ login }}"><b>sign in</b></a>]</p>
+    {% endif %}
+</div>
+<div class="scissors">
+</div>
+{% endblock header %}
+
+<div class="bothsides">
+    <div class="leftside">
+<p>What's a Closure?
+<ol>
+    <li><a href="/lesson?id=1000">What's a Closure?</a></li>
+    <li><a href="/lesson?id=1010">Variables and Values</a></li>
+    <li><a href="/lesson?id=1020">Defining Functions</a></li>
+    <li><a href="/lesson?id=1030">Side Effects</a></li>
+    <li><a href="/lesson?id=1040">Functions are Values</a></li>
+    <li><a href="/lesson?id=1050">Returning Functions</a></li>
+    <li><a href="/lesson?id=1055">Function Scope</a></li>
+    <li><a href="/lesson?id=1060">Nested Functions</a></li>
+    <li><a href="/lesson?id=1070">Stateful Closures</a></li>
+    <li><a href="/lesson?id=1080">Private Data</a></li>
+    <li><a href="/lesson?id=1085">Asynchronous Callbacks</a></li>
+    <li><a href="/lesson?id=1090">Continuation Passing</a></li>
+</ol>
+</p>
+    </div>
+
+    <div class="content">
+    {% block content %}
+    Hello world!
+    {% endblock content %}
+    </div>
+</div>
+
+{% block footer %}
+<div class="scissors">
+</div>
+<div class="bottomblock">
+<p class="bottom">
+  <a href="/lesson?id=1000&lang=en"><img src="/gfx/USA.png" /></a>
+  <a href="/lesson?id=1000&lang=br"><img src="/gfx/Brazil.png" /></a>
+  <a href="/about">about</a>
+  <a href="/news">news</a>
+  <a href="/">main</a></p>
+<p class="copyright">&copy;2011,  Nathan Whitehead</p>
+</div>
+{% endblock footer %}
+
+</body>
+</html>

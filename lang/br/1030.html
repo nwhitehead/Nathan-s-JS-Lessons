@@ -1,0 +1,64 @@
+{% extends "lesson.html" %}
+
+{% block title %}Efeitos paralelos{% endblock %}
+
+{% block description %}
+<p>
+Funções podem fazer mais do que apenas retornar valores. Elas podem também ter
+efeitos paralelos.  <font size="-1">*Efeitos paralelos deste exercício podem
+incluir insonia, transpiração e um estranho sentimento de euforia.</font></p>
+
+<p>Olhe este código</p>
+<textarea class="demo">// Algumas variáveis sem sentido
+var vaca, x;
+vaca = "sonolenta";
+
+// Uma simples função que dobra seu argumento
+var dobrar = function (a) {
+    vaca = "roxa";
+    return a * 2;
+};
+
+x = dobrar(6);
+// Ok, mas e a vaca?</textarea>
+
+<p>O que aconteceu?  A variável <tt>vaca</tt> foi definida, inicialmente, como
+<tt>"sonolenta"</tt>, depois o <tt>x</tt> é setado como <tt>12</tt>.
+Mas antes, do nada, nossa <tt>vaca</tt> foi setada como <tt>"roxa"</tt>.
+Você pode ver isso acontecendo na definição de <tt>dobrar</tt>.
+A função faz seu trabalho, o de dobrar seu parâmetro, mas ela tem um efeito
+paralelo de atribuir o valor <tt>"roxa"</tt> à <tt>vaca</tt> definida
+inicialmente fora da função.</p>
+
+<p>Esta é uma função matemática diferente das regulares. Normalmente as
+funções apenas mapeiam as entradas para uma saída. Nós não temos nenhuma vaca
+com super poderes como <tt>dobrar</tt>.</p>
+
+<p class="problem">Defina uma função chamada <tt>addOne</tt> que simplesmente
+retorne seu argumento mais um, mas secretamente transforme <tt>cow</tt>
+em <tt>"hamburger"</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+jslint_prelude += '/*globals cow: true*/';
+default_code = 'var addOne = function (x) {' + nl + '    ' + nl + '};';
+test_prelude = 'var cow = "purple";';
+add_bool_test('myTypeOf(addOne) === "function"', 'addOne é uma função');
+add_assert_test('cow', '"purple"');
+add_assert_test('addOne(2)', '3');
+add_assert_test('cow', '"hamburger"');
+{% endblock %}
+
+{#
+var addOne = function (x) {
+    cow = "hamburger";
+    return x + 1;
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1040';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}
+

@@ -1,0 +1,62 @@
+{% extends "lesson.html" %}
+
+{% block title %}Side Effects{% endblock %}
+
+{% block description %}
+<p>
+Functions can do more than just return values.  They can also
+have side effects.  <font size="-1">*Side effects of this exercise may include
+insomnia, sweating, and an unnatural feeling of euphoria.</font></p>
+
+<p>Take a look at this code</p>
+<textarea class="demo">// A few variables, hanging around
+var cow, x;
+cow = "sleepy";
+
+// A simple function that doubles its argument
+var double = function (a) {
+    cow = "purple";
+    return a * 2;
+};
+
+x = double(6);
+// What is cow now?</textarea>
+
+<p>What happens?  The variable <tt>cow</tt> is set to <tt>"sleepy"</tt>,
+then <tt>x</tt> is set to <tt>12</tt>.  But suddenly out of nowhere,
+<tt>cow</tt> is set to <tt>"purple"</tt>.  You can see it in the definition
+of <tt>double</tt>.  The function does its job of doubling the input,
+but it has the side effect of setting <tt>cow</tt> from outside the function
+to <tt>"purple"</tt>.</p>
+
+<p>This is different than regular mathematical functions.  In math,
+functions just map inputs to outputs.  They don't have any magical
+super cow powers like <tt>double</tt>.</p>
+
+<p class="problem">Define a function named <tt>addOne</tt> that appears
+to simply return its argument plus one, but secretly turns <tt>cow</tt>
+to <tt>"hamburger"</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+jslint_prelude += '/*globals cow: true*/';
+default_code = 'var addOne = function (x) {' + nl + '    ' + nl + '};';
+test_prelude = 'var cow = "purple";';
+add_bool_test('myTypeOf(addOne) === "function"', 'addOne is a function');
+add_assert_test('cow', '"purple"');
+add_assert_test('addOne(2)', '3');
+add_assert_test('cow', '"hamburger"');
+{% endblock %}
+
+{#
+var addOne = function (x) {
+    cow = "hamburger";
+    return x + 1;
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1040';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

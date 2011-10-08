@@ -1,0 +1,93 @@
+{% extends "lesson.html" %}
+
+{% block title %}Escopo da função{% endblock %}
+
+{% block description %}
+<p>Muitas linguagens têm <i>escopo de bloco</i>, o que significa que variáveis
+declaradas no começo de um bloco como um <tt>if</tt> ou um <tt>for</tt> são
+válidas apenas dentro de seus blocaos. JavaScript é um pouco diferente, todas as
+variáveis têm <i>escopo de função</i>.</p>
+
+<p>Isso significa que <i>todas</i> as variáveis declaradas dentro de uma função
+estarão disponíveis em qualquer parte dentro dela. Aqui temos um exemplo que
+mostra como isso pode ser surpriendente.</p>
+
+<textarea class="demo">var vaca = "roxa"; // apenas uma vaca qualquer
+
+var f = function (x) {
+    var r = 0;
+    vaca = "cola";
+    if (x > 3) {
+        var vaca = 1; // uma variável local
+        r = 7;
+    }
+    return r;
+};
+
+var z = f(2); // ...</textarea>
+
+<p>A <tt>vaca</tt> foi transformada em <tt>cola</tt> quando você chamou
+<tt>f(2)</tt>? Não, nossa <tt>vaca</tt> está a salvo no código acima porque
+a declaração <tt>var vaca</tt> dentro do bloco do <tt>if</tt> vale apenas
+<i>dentro da função</i>. Isso significa que <tt>vaca</tt> é uma variável local
+válida para todo o escopo da função.</p>
+
+<p>Para satisfazer suas mórbidas curiosidades bovinas, aqui está a versão que
+<i>transforma</i> a pobre <tt>vaca</tt> em <tt>cola</tt>.</p>
+
+<textarea class="demo">var vaca = "roxa"; // apenas uma vaca qualquer
+
+var f = function (x) {
+    var r = 0;
+    vaca = "cola";
+    if (x > 3) {
+        r = 7;
+    }
+    return r;
+};
+
+var z = f(2); // pobre vaca :-(</textarea>
+
+<p>Devido a este comportamento surpriendente, quando você escrever funções
+deve declarar todas as variáveis logo no começo, assim evitará confuções.
+Aqui segue um exemplo que declara algumas variáveis do modo correto.</p>
+
+<textarea class="demo">var mean = function (a, b) {
+    var sum, product, diff;
+    sum = a + b;
+    product = a * b;
+    diff = sum - product;
+    return diff;
+};</textarea>
+
+<p class="problem">Defina uma função chamada <tt>callFunc</tt> que recebe um
+argumento, uma função <tt>f</tt>.
+Ela deve retornar um array contendo os valores <tt>f(0)</tt>, <tt>f(0)</tt>,
+<tt>f(1)</tt> e <tt>f(1)</tt>. Você só pode chamar <tt>f</tt> duas vezes.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var callFunc = function (f) {' + nl + '    ' + nl + '};';
+test_prelude = 'var count = 0;\nvar f = function (x) {\n    count += 1;\n    return x + 2;\n};';
+add_bool_test('myTypeOf(callFunc) === "function"', 'callFunc é uma função');
+add_bool_test('myTypeOf(callFunc(f)) === "array"', 'callFunc(f) é um array');
+add_bool_test('count <= 2');
+add_bool_test('callFunc(f).compareArrays([2, 2, 3, 3])');
+add_bool_test('count <= 4');
+{% endblock %}
+
+{#
+var callFunc = function (f) {
+    var f0, f1;
+    f0 = f(0);
+    f1 = f(1);
+    return [f0, f0, f1, f1];
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1060';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}
+

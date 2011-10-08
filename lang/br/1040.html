@@ -1,0 +1,68 @@
+{% extends "lesson.html" %}
+
+{% block title %}Funções são valores{% endblock %}
+
+{% block description %}
+<p>
+Funções são valores em JavaScript. Assim como <tt>5</tt> é um valor
+que você pode atribuir a uma variável, a função que soma um a algum valor
+pode ser atribuida a uma variável <tt>addOne</tt>.
+</p>
+
+<p>Porque funções são valores, você pode fazer muitas coisas legais com elas.
+ Você pode colocá-las numa lista.
+<p>
+
+<textarea class="demo">var f = function (x) {
+    return x + 1;
+};
+var g = function(x) {
+    return x * 2;
+};
+var lst = [f, g, f]; // uma lista de funções!
+var y = lst[1](5); // o mesmo que g(5)</textarea>
+
+<p>Porque funções são valores, você pode passar funções como argumentos
+e retorná-las de outras funções. Aqui temos a definição de
+<tt>callTwice</tt> que recebe a função <tt>f</tt> como argumento
+e chama ela duas vezes numa linha.</p>
+
+<textarea class="demo">var addOne = function (x) {
+    return x + 1;
+};
+var callTwice = function(f, x) {
+    return f(f(x));
+};
+var y = callTwice(addOne, 3);
+// => addOne(addOne(3)) => 5</textarea>
+
+
+<p class="problem">Defina uma função chamada <tt>applyTest</tt> que
+recebe dois argumentos, uma função <tt>f</tt> e um valor <tt>x</tt>.
+Sua função deve retornar uma lista que contém <tt>x</tt>,
+a função <tt>f</tt> recebendo o valor <tt>x</tt>, e a função
+<tt>f</tt> recebendo <tt>0</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var applyTest = function () {' + nl + '    ' + nl + '};';
+test_prelude = 'var f = function (x) {\n    return x + 2;\n};\nvar g = function (x) {\n    return x * 3;\n};';
+add_bool_test('myTypeOf(applyTest) === "function"', 'applyTest é uma função');
+add_assert_test('applyTest(f, 1)[0]', '1');
+add_assert_test('applyTest(f, 1)[1]', '3');
+add_assert_test('applyTest(f, 1)[2]', '2');
+add_bool_test('applyTest(f, 2).compareArrays([2, 4, 2])');
+add_bool_test('applyTest(g, 3).compareArrays([3, 9, 0])');
+{% endblock %}
+
+{#
+var applyTest = function (f, x) {
+    return [x, f(x), f(0)];
+};
+#}
+{% block nextlesson %}
+var next_lesson = '1050';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}
+

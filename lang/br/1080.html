@@ -1,0 +1,73 @@
+{% extends "lesson.html" %}
+
+{% block title %}Dados Privados{% endblock %}
+
+{% block description %}
+
+<p>Uma vez que a função externa é feita ela não tem mais acesso do escopo
+externo. Toda vez que uma função externa é chamada uma nova closure será
+criada com um bind distinto para o escopo externo. O que nos leva a concluir
+que os valores fechados são inteiramente privados e escondidos de todos, exceto
+da função interna.</p>
+
+<p>Isso significa que nós podemos usar closures para dar alguma proteção
+a itens ocultos. No exemplo do <tt>makeCounter</tt>, o único código que pode
+atualizar a variável <tt>count</tt> é a função interna. Se você criar multiplos
+contadores, cada um deles terá seu <tt>count</tt> privado que é inacessível
+de qualquer outro lugar.</p>
+
+<p>Aqui temos um exemplo que mostra como criar uma variável privada.</p>
+
+<textarea class="demo">var counter = (function () {
+    var count, f;
+    count = 0;
+    f = function () {
+        count = count + 1;
+        return count;
+    };
+    return f;
+}());
+/* counter agora é uma função que não recebe argumentos
+   e retorna um contador */
+
+var a = counter(); // recebe 1
+var b = counter(); // recebe 2
+var c = counter(); // recebe 3</textarea>
+
+<p>Isso é similar ao último exemplo com <tt>makeCounter</tt>, mas aqui temos
+apenas um <tt>counter</tt>. Note o <tt>()</tt> ao final da definição de
+<tt>counter</tt>. A invocação também  foi envolta em parênteses pra facilitar
+a visualização (exigido pelo JSLint).</p>
+
+<div class="problem">Defina uma função chamada <tt>accumulator</tt> que recebe
+um argumento e recebe a soma total de todos os argumentos que foram passados
+previamente.</div>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var accumulator = (function () {' + nl + '    ' + nl + '}());';
+test_prelude = '';
+add_bool_test('myTypeOf(accumulator) === "function"', 'accumulator é uma função');
+add_assert_test('accumulator(7)', '7');
+add_assert_test('accumulator(3)', '10');
+add_assert_test('accumulator(-8)', '2');
+{% endblock %}
+
+{#
+var accumulator = (function () {
+    var count, f;
+    count = 0;
+    f = function (x) {
+        count += x;
+        return count;
+    };
+    return f;
+}());
+#}
+
+{% block nextlesson %}
+var next_lesson = '1085';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}
+

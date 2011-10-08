@@ -1,0 +1,48 @@
+{% extends "lesson.html" %}
+
+{% block title %}Variáveis e valores{% endblock %}
+
+{% block description %}
+<p>Parabéns! Você passou no primeiro exercício. Incrível!</p>
+
+<p>Para economizar na digitação, você pode declarar variáveis e dar a elas
+valores iniciais em uma única linha. Esta única linha declara a variável
+<tt>fish</tt> e atribui a ela o valor <tt>42</tt>.</p>
+<textarea class="demo">var fish = 42;</textarea>
+
+<p>JavaScript tem mais tipos de valores do que só números. Aqui estão alguns
+exemplos.</p>
+<textarea class="demo">// Texto
+var txt = "Olá mundo!";
+
+// Decimal
+var delta = 0.000157;
+
+// Array (coleção) de textos
+var people = ['Jack', 'Jill', 'Bob'];</textarea>
+
+<p>Caso você esqueça isso, textos podem usar áspas simples ou duplas.
+Isso é útil caso você precise pôr uma citação dentro de um texto.</p>
+
+<p class="problem">Declare uma variável <tt>colors</tt> cujo o valor seja um
+Array com 3 textos que são nomes de cores. O primeiro elemento do array deve
+ser <tt>"blue"</tt>.  O segundo elemento deve ser <tt>"red"</tt>.
+Use sua criatividade para o terceiro elemento.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+add_bool_test('myTypeOf(colors) === "array"', 'colors é um array');
+add_assert_test('colors[0]', '"blue"');
+add_assert_test('colors[1]', '"red"');
+{% endblock %}
+
+{#
+var colors = ["blue", "red", "pink"];
+#}
+
+{% block nextlesson %}
+var next_lesson = '1020';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}
+

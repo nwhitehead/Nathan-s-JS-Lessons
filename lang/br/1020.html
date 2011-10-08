@@ -1,0 +1,58 @@
+{% extends "lesson.html" %}
+
+{% block title %}Definindo funções{% endblock %}
+
+{% block description %}
+<p>Você está indo bem!
+</p>
+
+<p>
+OK, agora que já estamos familiarizados com variáveis e seus valores em
+JavaScript, vamos ao que interessa, funções.</p>
+
+<p>Aqui está a definição de uma função chamada <tt>plusOne</tt>
+que adiciona um ao argumento passado.</p>
+<textarea class="demo">// Uma simples função que soma um
+var plusOne = function (x) {
+    return x + 1;
+};</textarea>
+
+<p>Aqui está o código que usa a função para atribuir um valor a <tt>y</tt>.</p>
+<textarea class="demo">var y = plusOne(10);</textarea>
+
+<p>A variável <tt>y</tt> agora tem o valor <tt>11</tt>, porque <tt>10 + 1</tt>
+é <tt>11</tt>.</p>
+
+<p>Funções podem ter mais de um argumento. Aqui temos uma função que
+recebe dois argumentos.</p>
+
+<textarea class="demo">// Calcula a área de um retângulo
+var area = function (w, h) {
+    return w * h;
+};</textarea>
+
+<p class="problem">Defina uma função chamada <tt>add</tt> que recebe
+dois argumentos <tt>x</tt> e <tt>y</tt>, e retorna a soma de <tt>x</tt>
+e <tt>y</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var add = ';
+add_bool_test('myTypeOf(add) === "function"', 'add é uma função');
+add_assert_test('add(2, 2)', '4');
+add_assert_test('add(1, 7)', '8');
+add_assert_test('add(-3, 0)', '-3');
+{% endblock %}
+
+{#
+var add = function (x, y) {
+    return x + y;
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1030';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}
+

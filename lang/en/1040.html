@@ -1,0 +1,67 @@
+{% extends "lesson.html" %}
+
+{% block title %}Functions are Values{% endblock %}
+
+{% block description %}
+<p>
+Functions are values in JavaScript.  Just like <tt>5</tt> is a value
+that you can assign to a variable, the function that returns its input
+plus one is a value that you can assign to the variable <tt>addOne</tt>.
+</p>
+
+<p>Because functions are values, you can do lots of cool things with
+them.  You can put them in a list.
+<p>
+
+<textarea class="demo">var f = function (x) {
+    return x + 1;
+};
+var g = function(x) {
+    return x * 2;
+};
+var lst = [f, g, f]; // a list of functions!
+var y = lst[1](5); // same as g(5)</textarea>
+
+<p>Because functions are values, you can pass functions as arguments
+and return them from other functions.  Here is a definition of
+<tt>callTwice</tt> that takes a function <tt>f</tt> as an argument
+and invokes it twice in a row.</p>
+
+<textarea class="demo">var addOne = function (x) {
+    return x + 1;
+};
+var callTwice = function(f, x) {
+    return f(f(x));
+};
+var y = callTwice(addOne, 3);
+// => addOne(addOne(3)) => 5</textarea>
+
+
+<p class="problem">Define a function named <tt>applyTest</tt> that 
+takes two arguments, a function <tt>f</tt> and an input <tt>x</tt>.
+Your function should return a list that contains <tt>x</tt>,
+the function <tt>f</tt> on the input <tt>x</tt>, and the function
+<tt>f</tt> on the input <tt>0</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var applyTest = function () {' + nl + '    ' + nl + '};';
+test_prelude = 'var f = function (x) {\n    return x + 2;\n};\nvar g = function (x) {\n    return x * 3;\n};';
+add_bool_test('myTypeOf(applyTest) === "function"', 'applyTest is a function');
+add_assert_test('applyTest(f, 1)[0]', '1');
+add_assert_test('applyTest(f, 1)[1]', '3');
+add_assert_test('applyTest(f, 1)[2]', '2');
+add_bool_test('applyTest(f, 2).compareArrays([2, 4, 2])');
+add_bool_test('applyTest(g, 3).compareArrays([3, 9, 0])');
+{% endblock %}
+
+{#
+var applyTest = function (f, x) {
+    return [x, f(x), f(0)];
+};
+#}
+{% block nextlesson %}
+var next_lesson = '1050';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

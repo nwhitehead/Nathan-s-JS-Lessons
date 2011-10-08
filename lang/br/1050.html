@@ -1,0 +1,62 @@
+{% extends "lesson.html" %}
+
+{% block title %}Retornando funções{% endblock %}
+
+{% block description %}
+<p>
+Como funções são valores, elas podem ser retornadas por outras funções.
+Isso pode ser incrivelmente poderoso.
+</p>
+
+<textarea class="demo">var makeFunction = function () {
+    var addOne = function (x) {
+        return x + 1;
+    };
+    return addOne; // retorna a função
+};
+// makeFunction é uma função que não recebe argumentos
+
+var f = makeFunction();
+// f agora é uma função que recebe um argumento
+
+var y = f(3);
+// agora y é 4</textarea>
+
+<p>Lembre-se tem uma diferença entre uma função e uma função com parâmetros
+aplicados. <tt>f</tt> é diferente de <tt>f(x)</tt>. Mas se uma função não
+recebe argumentos ela ainda tem uma diferença. <tt>makeFunction</tt> é uma
+função que não recebe argumentos, <tt>makeFunction()</tt> é o resultado que
+ela retorna após ser chamada. Que é, em si, uma outra função.</p>
+
+<p class="problem">Defina uma função chamada <tt>generate</tt> que recebe um
+argumento, uma função <tt>f</tt>. Ela deve retornar um array que consiste de
+uma função <tt>f</tt> e outra função que dobre seu parâmetro.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var generate = function () {' + nl + '    ' + nl + '};';
+test_prelude = 'var f = function (x) {\n    return x + 2;\n};';
+add_bool_test('myTypeOf(generate) === "function"', 'generate é uma função');
+add_bool_test('myTypeOf(generate(f)) === "array"', 'generate(f) é um array');
+add_bool_test('myTypeOf(generate(f)[0]) === "function"', 'generate(f)[0] é uma função');
+add_bool_test('myTypeOf(generate(f)[1]) === "function"', 'generate(f)[1] é uma função');
+add_assert_test('generate(f)[0](1)', '3');
+add_assert_test('generate(f)[0](2)', '4');
+add_assert_test('generate(f)[1](6)', '12');
+{% endblock %}
+
+{#
+var generate = function (f) {
+    var double = function (x) {
+        return 2 * x;
+    };
+    return [f, double];
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1055';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}
+

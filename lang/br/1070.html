@@ -1,0 +1,79 @@
+{% extends "lesson.html" %}
+
+{% block title %}Cada Closures com seu estado{% endblock %}
+
+{% block description %}
+
+<p>Uma coisa muito útil de um closure é que ele mantém seu estado interno.
+Lembre-se que um closure é criado quando uma função filho se refere a uma
+variável de uma função mãe. Até agora nós só lemos os valores, mas nós podemos
+<i>escrever</i> valores também.</p>
+
+<p>Aqui está um exemplo de uma função que cria um contador.</p>
+
+<textarea class="demo">var makeCounter = function () {
+    var count, f;
+    count = 0;
+    f = function () {
+        count = count + 1;
+        return count;
+    };
+    return f;
+};
+var counter = makeCounter();
+// counter é uma função que não recebe argumentos
+// e retorna um contador
+
+var a = counter(); // retorna 1
+var b = counter(); // retorna 2
+var c = counter(); // retorna 3
+
+var counter2 = makeCounter(); // cria outro contador
+var d = counter2(); // retorna 1
+var e = counter2(); // retorna 2
+var f = counter(); // retorna 4, do primeiro contador</textarea>
+
+<p>Aonde está o estado mantido? Está na variável <tt>count</tt> no escopo
+externo. Por que tem duas cópias? Cada chamada à <tt>makeCounter</tt> cria um
+novo escopo para <tt>count</tt>, e o closure ao redor da função filho
+<tt>f</tt> captura este escopo.</p>
+
+<p class="problem">Defina uma função chamada <tt>makeAccumulator</tt> que não
+recebe argumentos. Ela deve criar e retornar uma função que recebe um argumento
+e retorna a soma total dos argumentos passados.
+Por exemplo, se <tt>f</tt> é a função retornada por <tt>makeAccumulator</tt>,
+a primeira vez que você chamar <tt>f(3)</tt> ela deve retornar <tt>3</tt>,
+depois, se você chamar <tt>f(2)</tt> ela deve retornar <tt>5</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var makeAccumulator = function () {' + nl + '    ' + nl + '};';
+test_prelude = '';
+add_bool_test('myTypeOf(makeAccumulator) === "function"', 'makeAccumulator é uma função');
+add_bool_test('myTypeOf(makeAccumulator()) === "function"', 'makeAccumulator() é uma função');
+add_null_test('var acc = makeAccumulator();', 'Cria acc');
+add_assert_test('acc(10)', '10');
+add_assert_test('acc(3)', '13');
+add_assert_test('acc(1)', '14');
+add_null_test('var acc2 = makeAccumulator();', 'Cria acc2');
+add_assert_test('acc2(2)', '2');
+add_assert_test('acc2(9)', '11');
+{% endblock %}
+
+{#
+var makeAccumulator = function () {
+    var count, f;
+    count = 0;
+    f = function (x) {
+        count += x;
+        return count;
+    };
+    return f;
+};
+#}
+{% block nextlesson %}
+var next_lesson = '1080';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}
+

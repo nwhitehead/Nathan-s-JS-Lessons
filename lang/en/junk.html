@@ -1,0 +1,71 @@
+<p>Now we've got functions coming in and going out.  Here's an example
+of a function that takes a function <tt>f</tt> as input and returns an
+array that has <tt>f</tt> and another function that adds one to its
+input.</p>
+
+<textarea class="demo">var pairUp = function (f) {
+    var addOne = function (x) {
+        return x + 1;
+    };
+    return [f, addOne];
+};
+// pairUp takes one argument, a function
+
+var lst = pairUp(pairUp); // whoa, what...
+
+var f = lst[1];
+// f now contains a function that adds one
+
+var y = f(4);
+// now y is 5</textarea>
+
+<p>We were a little bit sneaky there.  We passed <tt>pairUp</tt>, the
+function, as the argument to <tt>pairUp</tt>, the function.  It's
+legit, the function <tt>pairUp</tt> can take any function as its input.
+</p>
+<textarea class="demo">var complicated = function (x) {
+    var c = 1; // constant
+    var f = function (x) {
+        // We can refer to c in here!
+        return x * 3 + c;
+    };
+    return f(f(x));
+};
+var y = complicated(2);
+// y is still 22 here</textarea>
+
+<p>
+The only tricky thing to remember is that arguments are <i>passed by value</i>.
+This means that functions get a copy of the original value passed
+into the function.</p>
+
+<textarea class="demo">var increment = function (x) {
+    x = x + 1; // this should work, right?
+};
+var y = 1;
+increment(y);
+// y is still 1 here, doh!</textarea>
+
+
+var funcs = (function () {
+    var count, f, g;
+    count = 0;
+    f = function() {
+        count += 1;
+        return count;
+    };
+    g = function() {
+        count -= 1;
+        return count;
+    };
+    return [f, g];
+})();
+
+
+var doStuffAsync = function (callback) {
+    write("world.txt", "hello", function () {
+        read("passwords", function (x) {
+            callback(x);
+        });
+    });
+};

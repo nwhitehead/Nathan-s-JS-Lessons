@@ -1,0 +1,37 @@
+{% extends "qfbase.html" %}
+
+{% block content %}
+<h1>{% block title %}Monte Carlo Option Pricing{% endblock %}</h1>
+
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/excanvas.min.js"></script><![endif]-->
+<script src="/js/jquery.jqplot.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery.jqplot.min.css" />
+
+<div id="chart1" style="width:600px;height:300px;"></div>
+
+<p>Blah blah blah</p>
+
+<script>
+
+
+$(function(){
+  var cosPoints = [];
+  for (var i=0; i<6*Math.PI; i+=0.1){
+     cosPoints.push([i, Math.cos(i)]);
+  }
+  var plot1 = $.jqplot('chart1', [cosPoints], { 
+      series:[{showMarker:false}],
+      axes:{
+        xaxis:{
+          label:'Angle (radians)'
+        },
+        yaxis:{
+          label:'Cosine'
+        }
+      }
+  });
+});
+
+
+</script>
+{% endblock content %}

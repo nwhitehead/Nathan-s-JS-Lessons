@@ -1,0 +1,62 @@
+{% extends "lesson.html" %}
+
+{% block title %}Nested Objects{% endblock %}
+
+{% block description %}
+<p>
+Because objects are values, and properties of objects have a name
+and a value, you can nest objects inside of objects.  Here's
+a scientific apple object:
+</p>
+
+<textarea class="demo">var scientific_apple = {
+    classification: {
+        genus: "Malus",
+        species: "Domestica",
+        cultivar: "Gravenstein"
+    },
+    flavor: {
+        tartness: 6,
+        sweetness: 7
+    },
+    owner: "Nathan"
+};</textarea>
+
+<p>To access properties of objects, use the notation <tt>object.property</tt>.
+So <tt>scientific_apple.owner</tt> evaluates to <tt>"Nathan"</tt>.
+If the property has a value that is an object, you can use the dot notation
+again to dig deeper.
+So
+<tt>scientific_apple.classification.cultivar</tt>
+evaluates to <tt>"Gravenstein"</tt>.
+</p>
+
+
+
+<p class="problem">Now you try.  Declare an object <tt>my_apple</tt> 
+that has property <tt>fruit</tt> that is <tt>"apple"</tt>,
+property <tt>color</tt> of <tt>"green"</tt>, and any level of
+<tt>tartness</tt> you desire.  Click "submit" when you think you have it.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var my_apple = ';
+add_bool_test('typeof my_apple === "object"', 'my_apple is an object');
+add_assert_test('my_apple.fruit', '"apple"');
+add_assert_test('my_apple.color', '"green"');
+add_bool_test('typeof my_apple.tartness === "number"', 'my_apple.tartness is a number');
+{% endblock %}
+
+{#
+var my_apple = {
+    fruit: "apple",
+    color: "green",
+    tartness: 7
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '2010';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}

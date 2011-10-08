@@ -1,0 +1,158 @@
+body {
+    background: #fff;
+    padding: 0px;
+    margin: 0 auto;
+    font-size: 12pt;
+    font-family: serif;
+    line-height: 130%;
+}
+p.top {
+    color: #444;
+    margin: 10px;
+    font-size: 10pt;
+}
+p.bottom {
+    color: #444;
+    margin: 10px;
+}
+h1 {
+    font-family: arial, serif;
+    font-size: 24pt;
+    padding: 0;
+    margin: 5px 0 5px 0;
+}
+h2 {
+    font-family: arial, serif;
+    font-size: 16pt;
+    padding: 0;
+    margin: 5px 0 5px 0;
+}
+h3 {
+    font-family: arial, serif;
+    font-size: 16pt;
+    padding: 0px;
+    margin: 10px 0 20px 0;
+}
+div.scissors {
+    clear: both;
+    position: relative;
+    border-bottom: 3px dotted #fca;
+    padding: 0 0 0 0;
+}
+div.nextlesson {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -60px;
+    width: 100px;
+    height: 120px;
+    text-align: center;
+}
+.prelude {
+    background: #ffe;
+    width: 100%;
+    font-family: monospace;
+    overflow: visible;
+    height: auto;
+    position: relative;
+}
+.console {
+    background: #f8f8f5;
+    width: 100%;
+    height: 200px;
+    overflow: auto;
+    font-family: monospace;
+    margin: 10px 0px 10px 0px;
+    border: 1px;
+    border-style: solid none solid none;
+}
+.console p {
+    margin: 5px 10px 5px 10px;
+}
+.passed {
+    color: #080;
+}
+.failed {
+    color: #800;
+}
+.warning {
+    color: #880;
+}
+.error {
+    color: #800;
+}
+.success {
+    color: #fff;
+    background: #080;
+}
+.log {
+    color: #888;
+}
+div.buttonbox {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.buttonleft {
+    position: relative;
+    left: 0;
+}
+.buttonright {
+    position: absolute;
+    right: 0;
+}
+div.bothsides {
+    width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #888;
+}
+div.content {
+    float: right;
+    text-align: left;
+    color: #000;
+    width: 600px;
+    background: #fff;
+    padding: 20px;
+    border-left: 3px dotted #fca;
+}
+div.leftside {
+    float: left;
+    width: 155px;
+    margin: 0 20px 0 20px;
+    font-size: 10pt;
+}
+div.topblock {
+    text-align: right;
+    width: 90%;
+}
+div.bottomblock {
+    text-align: left;
+    width: 90%;
+}
+p.copyright {
+    position: relative;
+    left: 10px;
+    color: #888;
+    font-size: 10pt;
+}
+div.hr {
+    width: 600px;
+    height: 3px;
+    border-bottom: 3px dotted #fca;
+}
+p.problem {
+    font-style: italic;
+}
+#cursor {
+    position: absolute;
+    right: 20px;
+    top: -10px;
+    font-size: 8pt;
+    color: #888;
+}
+.logo {
+    float: left;
+    padding: 5px 0 10px 50px;
+}

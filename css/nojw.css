@@ -1,0 +1,55 @@
+.cm-s-nojw { 
+    background: #fff; 
+    color: #000; 
+    border: solid 1px #333; 
+}
+.cm-s-nojw span.cm-keyword {color: #708;}
+.cm-s-nojw span.cm-atom {color: #219;}
+.cm-s-nojw span.cm-number {color: #164;}
+.cm-s-nojw span.cm-def {color: #00f;}
+.cm-s-nojw span.cm-variable {color: black;}
+.cm-s-nojw span.cm-variable-2 {color: #05a;}
+.cm-s-nojw span.cm-variable-3 {color: #0a5;}
+.cm-s-nojw span.cm-property {color: black;}
+.cm-s-nojw span.cm-operator {color: black;}
+.cm-s-nojw span.cm-comment {color: #a50;font-style: italic;}
+.cm-s-nojw span.cm-string {color: #a11;}
+.cm-s-nojw span.cm-meta {color: #555;font-style: italic;}
+.cm-s-nojw span.cm-error {color: #f00;}
+.cm-s-nojw span.cm-qualifier {color: #555;}
+.cm-s-nojw span.cm-builtin {color: #30a;}
+.cm-s-nojw span.cm-bracket {color: #cc7;}
+.cm-s-nojw span.cm-tag {color: #170;}
+.cm-s-nojw span.cm-attribute {color: #00c;}
+
+
+.cm-s-nojw-demo {
+  overflow: visible;
+  height: auto;
+  position: relative;
+}
+.cm-s-nojw-demo { 
+    background: #f8f8f5;
+    background-image: url("../gfx/stripe.png");
+    background-repeat: repeat-y;
+    background-position:right;
+    color: #000;
+}
+.cm-s-nojw-demo span.cm-keyword {color: #708;}
+.cm-s-nojw-demo span.cm-atom {color: #219;}
+.cm-s-nojw-demo span.cm-number {color: #164;}
+.cm-s-nojw-demo span.cm-def {color: #00f;}
+.cm-s-nojw-demo span.cm-variable {color: black;}
+.cm-s-nojw-demo span.cm-variable-2 {color: #05a;}
+.cm-s-nojw-demo span.cm-variable-3 {color: #0a5;}
+.cm-s-nojw-demo span.cm-property {color: black;}
+.cm-s-nojw-demo span.cm-operator {color: black;}
+.cm-s-nojw-demo span.cm-comment {color: #a50;font-style: italic;}
+.cm-s-nojw-demo span.cm-string {color: #a11;}
+.cm-s-nojw-demo span.cm-meta {color: #555;font-style: italic;}
+.cm-s-nojw-demo span.cm-error {color: #f00;}
+.cm-s-nojw-demo span.cm-qualifier {color: #555;}
+.cm-s-nojw-demo span.cm-builtin {color: #30a;}
+.cm-s-nojw-demo span.cm-bracket {color: #cc7;}
+.cm-s-nojw-demo span.cm-tag {color: #170;}
+.cm-s-nojw-demo span.cm-attribute {color: #00c;}

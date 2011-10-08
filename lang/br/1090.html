@@ -1,0 +1,146 @@
+{% extends "lesson.html" %}
+
+{% block title %}Passando uma continuação{% endblock %}
+
+{% block description %}
+
+<p>Uma <i>continuação</i> é um callback que representa o que fazer a seguir
+. Você chama uma continuação no lugar do retorno da função, pra que, ao invés
+de ela retornar um valor e parar, ela faça algo na sua continuação.
+Se você converter seu código pra nunca usar <tt>return</tt> e só fazê-lo usar
+continuações, você transformará seu programa em um <i>continuation-passing
+style</i> que pra facilitar traduzirei como estilo contínuo. Aqui está uma
+função que adiciona 1 a um número, no modo regular e no estilo contínuo.</p>
+
+<textarea class="demo">// regular
+var addOne = function (x) {
+    return x + 1;
+};
+
+// estilo contínuo
+var addOneCPS = function (x, ret) {
+    ret(x + 1);
+};</textarea>
+
+<p>No estilo contínuo, toda função recebe um parâmetro extra <tt>ret</tt> que
+é chamado no lugar do retorno.</p>
+
+<p>Nós não estamos limitados a apenas uma continuação. Vamos supor que todas as
+funções têm uma continuação <tt>success</tt> e uma <tt>failure</tt>. Aqui
+temos como ficaria o <tt>addOne</tt> com esta impĺementação.</p>
+
+<textarea class="demo">var addOneC = function (x, success, failure) {
+    if (x < 10) {
+        success(x + 1);
+    } else {
+        // x é muito grande
+        failure();
+    }
+};</textarea>
+
+<p>Aqui temos um exemplo de operação sequencial <tt>seqC</tt>. A função
+<tt>seqC</tt> tem duas funções <tt>fC</tt> e <tt>gC</tt>, juntamente com os
+continuadores <tt>success</tt> e <tt>failure</tt>. As funções <tt>fC</tt> e
+<tt>gC</tt> recebem os continuadores <tt>success</tt> e <tt>failure</tt>, eles
+não lidam com todos os dados. O operador <tt>seqC</tt> roda <tt>fC</tt> e se
+for bem sucedido, dá continuação. Se <tt>fC</tt> falhar, então rodará
+<tt>gC</tt> e continuará.</p>
+
+<textarea class="demo">var seqC = function (fC, gC, success, failure) {
+    var f_success, f_failure;
+    f_success = function () {
+        success();
+    };
+    f_failure = function () {
+        var g_success, g_failure;
+        g_success = function () {
+            success();
+        };
+        g_failure = function () {
+            failure();
+        };
+        gC(g_success, g_failure);
+    };
+    fC(f_success, f_failure);
+};</textarea>
+
+<p>Este código pode ser simplificado. Por exemplo, nós podemos dizer
+<tt>success</tt> no lugar de <tt>f_success</tt>. Aqui está a versão
+simplificada.</p>
+
+<textarea class="demo">var seqC = function (fC, gC, success, failure) {
+    fC(success, function () {
+        gC(success, failure);
+    });
+};</textarea>
+
+<p class="problem">Defina uma função chamada <tt>bothC</tt> similar a
+<tt>seqC</tt> que recebe as funções <tt>tC</tt> e <tt>gC</tt> e os
+continuadores <tt>success</tt> e <tt>failure</tt>.
+As funções <tt>fC</tt> e <tt>gC</tt> ambas têm apenas os continuadores
+<tt>success</tt> e <tt>failure</tt>.
+Sua função <tt>bothC</tt> deve chamar <tt>fC</tt> e <tt>gC</tt>, independente
+de qualquer coisa, mas só deve chamar <tt>success</tt> se ambas tiverem sucesso,
+senão chame <tt>failure</tt>. Não esqueça, sua função nuca retornará!</p>
+
+
+{% endblock description %}
+
+{% block jsoptions %}
+var default_code =
+    'var bothC = function (fC, gC, success, failure) {' + nl +
+    '    var f_success, f_failure;' + nl +
+    '    f_success = function () {' + nl +
+    '        ' + nl +
+    '    };' + nl +
+    '    f_failure = function () {' + nl +
+    '        ' + nl +
+    '    };' + nl +
+    '};';
+var test_prelude =
+    'var output = "";' + nl +
+    'var done = function (m) {' + nl +
+    '    return function () {' + nl +
+    '        output += m;' + nl +
+    '    };' + nl +
+    '};' + nl +
+    'var A = done("A");' + nl +
+    'var B = done("B");' + nl +
+    'var S = function (success, failure) {' + nl +
+    '    output += "S";' + nl +
+    '    success();' + nl +
+    '};' + nl +
+    'var F = function (success, failure) {' + nl +
+    '    output += "F";' + nl +
+    '    failure();' + nl +
+    '};' + nl +
+    '';
+add_assert_test('bothC(S, S, A, B)', 'undefined');
+add_assert_test('output', '"SSA"');
+add_assert_test('bothC(S, F, A, B)', 'undefined');
+add_assert_test('output', '"SSASFB"');
+add_assert_test('bothC(F, S, A, B)', 'undefined');
+add_assert_test('output', '"SSASFBFSB"');
+add_assert_test('bothC(F, F, A, B)', 'undefined');
+add_assert_test('output', '"SSASFBFSBFFB"');
+{% endblock %}
+
+{#
+var bothC = function (fC, gC, success, failure) {
+    var f_success, f_failure;
+    f_success = function () {
+        gC(success, failure);
+    };
+    f_failure = function () {
+        gC(failure, failure);
+    };
+    fC(f_success, f_failure);
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '9999';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}
+

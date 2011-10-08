@@ -1,0 +1,48 @@
+{% extends "lesson.html" %}
+
+{% block title %}Variables and Values{% endblock %}
+
+{% block description %}
+<p>Congratulations!  You passed your first exercise.  You are awesome.
+</p>
+
+<p>To save typing, you can declare variables and give them initial values
+all on one line.  This one-liner declares the variable <tt>fish</tt> and
+sets it to the value <tt>42</tt>.</p>
+<textarea class="demo">var fish = 42;</textarea>
+
+<p>JavaScript has more values than just numbers.  Here are some more
+examples.</p>
+<textarea class="demo">// String
+var txt = "Hello, world!";
+
+// Fancy number
+var delta = 0.000157;
+
+// Array of strings
+var people = ['Jack', 'Jill', 'Bob'];</textarea>
+
+<p>In case you missed it, strings can use either single or double quotes.
+That's handy if you need a quote inside a string.</p>
+
+<p class="problem">Declare a variable <tt>colors</tt> that has a value that is
+an array with 3 strings that are color names.  The first element
+of the array should be <tt>"blue"</tt>.  The second element
+of the array should be <tt>"red"</tt>.  Get creative for the third element.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+add_bool_test('myTypeOf(colors) === "array"', 'colors is an array');
+add_assert_test('colors[0]', '"blue"');
+add_assert_test('colors[1]', '"red"');
+{% endblock %}
+
+{#
+var colors = ["blue", "red", "pink"];
+#}
+
+{% block nextlesson %}
+var next_lesson = '1020';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}

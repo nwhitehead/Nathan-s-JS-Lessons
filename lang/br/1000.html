@@ -1,0 +1,55 @@
+{% extends "lesson.html" %}
+
+{% block title %}O que é Closure?{% endblock %}
+
+{% block description %}
+<p>
+Já imaginou o que são closures e como eles funcionam?
+Você pode aprender sobre este avançado conceito de programação agora mesmo
+através de lições interativas em JavaScript.
+</p>
+
+<p>Vamos começar!</p>
+
+<div class="hr"></div>
+
+<p>Aqui está um exemplo de código JavaScript.</p>
+
+<textarea class="demo">var f = function (x) {
+    return x + 1;
+}</textarea>
+
+<p>Relaxa! Nós não ficaremos sentados apenas olhando códigos bonitinhos.
+Nós escreveremos código!</p>
+
+<h2>Variáveis</h2>
+
+<p>Aqui está o código que declara <tt>x</tt> como variável,
+e atribui o valor de <tt>x</tt> como <tt>5</tt>.</p>
+
+
+<textarea class="demo">var x;
+x = 5;</textarea>
+
+<p class="problem">Agora tente você. Declare uma variável <tt>y</tt> e depois
+atribua o valor <tt>7</tt> a ela.  Clique "submit" quando terminar.</p>
+
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var ';
+add_bool_test('typeof y === "number"', 'y é um número');
+add_assert_test('y', '7');
+{% endblock %}
+
+{#
+var y;
+y = 7;
+#}
+
+{% block nextlesson %}
+var next_lesson = '1010';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}
+

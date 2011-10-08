@@ -1,0 +1,63 @@
+{% extends "lesson.html" %}
+
+{% block title %}Returning Functions{% endblock %}
+
+{% block description %}
+<p>
+Because functions are values, functions can return other functions.
+This can be incredibly powerful.
+</p>
+
+<textarea class="demo">var makeFunction = function () {
+    var addOne = function (x) {
+        return x + 1;
+    };
+    return addOne; // return the function
+};
+// makeFunction is a function with no arguments
+
+var f = makeFunction();
+// f is a function that takes one argument
+
+var y = f(3);
+// now y is 4</textarea>
+
+<p>Remember there's a difference between a function and a function
+applied to its arguments.  It's the difference between <tt>f</tt>
+and <tt>f(x)</tt>.  If a function doesn't take any arguments there is
+still a difference.  <tt>makeFunction</tt> is a function that takes
+no arguments, <tt>makeFunction()</tt> is the result of calling that
+function.  Which is itself another function...</p>
+
+<p class="problem">Define a function named <tt>generate</tt> that 
+takes one argument, a function <tt>f</tt>.  It should return an array
+that consists of the function <tt>f</tt> and another function that
+doubles its input.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var generate = function () {' + nl + '    ' + nl + '};';
+test_prelude = 'var f = function (x) {\n    return x + 2;\n};';
+add_bool_test('myTypeOf(generate) === "function"', 'generate is a function');
+add_bool_test('myTypeOf(generate(f)) === "array"', 'generate(f) is an array');
+add_bool_test('myTypeOf(generate(f)[0]) === "function"', 'generate(f)[0] is a function');
+add_bool_test('myTypeOf(generate(f)[1]) === "function"', 'generate(f)[1] is a function');
+add_assert_test('generate(f)[0](1)', '3');
+add_assert_test('generate(f)[0](2)', '4');
+add_assert_test('generate(f)[1](6)', '12');
+{% endblock %}
+
+{#
+var generate = function (f) {
+    var double = function (x) {
+        return 2 * x;
+    };
+    return [f, double];
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1055';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

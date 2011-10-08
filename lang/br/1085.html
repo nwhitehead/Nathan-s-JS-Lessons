@@ -1,0 +1,146 @@
+{% extends "lesson.html" %}
+
+{% block title %}Callbacks assíncronos{% endblock %}
+
+{% block description %}
+
+<p>As vezes as funções podem demorar muito para retornar.
+Por exemplo, se você chama uma função <tt>leia(arquivo)</tt>, a função pode
+ter de parar e esperar o disco girar e procurar no lugar certo antes da
+informção estar pronta para ser usada.
+Se o arquivo estiver em um outro servidor na nuvem, a função terá de esperar
+a resposta do outro servidor.</p>
+
+<p>Isso pode ser um problema, Por exemplo, no navegador você não quer que a
+interface fique congelada para o usuário enquanto você procura uma rota no
+Google Mapas. No servidor, você não quer que uma requisição que raramente é
+usada segure todas as outras requisições.</p>
+
+<p>Felizmente isso tem solução.
+No modelo assíncrono a função <tt>readAsync</tt> aceita um arquivo e um
+callback como parâmetro. A função retorna imediatamente antes da leitura do
+arquivo e agenda a leitura pra um momento futuro.
+Uma vez que os dados estão prontos, a função <tt>callback</tt> é chamada.</p>
+
+<p>E o que é um callback? É um closure
+Nós veremos como usar funções assíncronas; implementá-los é outra história.</p>
+
+<!--
+<p><a href="http://nodejs.org">Node.js</a>
+provides a full-featured environment for asynchronous event-driven
+programming on the server.  If you write your code using the asynchronous model,
+it can schedule code in an efficient way so that code that is ready to
+run gets scheduled before code that is waiting on results.
+</p>
+-->
+
+<p>Aqui temos um exemplo de como usar uma função de bloqueio regular
+<tt>read</tt> para pegar o conteúdo de um arquivo.</p>
+
+<textarea class="demo">var readFile = function () {
+    var data;
+    data = read('file.txt');
+    doSomething('Contents: ' + data);
+};</textarea>
+
+<p>Aqui temos o mesmo exemplo usando uma função assíncrona <tt>readAsync</tt>.
+</p>
+
+<textarea class="demo">var readFileAsync = function () {
+    var func = function (x) {
+        /* Você pode fazer coisas com o conteúdo
+        x do arquivo, aqui. */
+        doSomething('Contents: ' + x);
+    };
+    readAsync('file.txt', func);
+    /* Você pode fazer coisas aqui, mas mas
+       não tem acesso ao conteúdo do arquivo.
+       func pode ter sido ou não chamada neste
+       ponto. */
+    doMoreStuff();
+};</textarea>
+
+
+<p>Algumas chamadas <tt>readFileAsync</tt>. Dentro do <tt>readFileAsync</tt>,
+<tt>readAsync</tt> é chamado com o callback <tt>func</tt>. Uma vez que os
+dados estãoprontos, <tt>readAsync</tt> chama <tt>func</tt> com os dados. Então
+<tt>func</tt> chama <tt>doSomething</tt> com os dados atualizados. Isso pode
+acontecer antes, durante ou depois da execução de <tt>doMoreStuff()</tt>.</p>
+
+<p>Escrever programas que usam callbacks assíncronos pode ser um pouco
+as avessas. Isso pode ajudar a usar funções anonimas. Aqui temos um exemplo
+com uma função anônima.</p>
+
+<textarea class="demo">var readFileAsync = function () {
+    readAsync('file.txt', function (x) {
+        /* Você pode fazer coisas com o conteúdo
+           x do arquivo, aqui. */
+        doSomething('Contents: ' + x);
+    });
+    doMoreStuff();
+};</textarea>
+
+<p>Aqui temos um exemplo que usa funções assíncronas
+<tt>writeAsync(file, contents, callback)</tt>. Neste caso o callback não
+recebe nenhum argumento, ele só é chamado quando a escrita termina.</p>
+
+<textarea class="demo">var writeScoreAsync = function (score) {
+    var contents = 'Your score was ' + score;
+    writeAsync('hiscore.txt', contents, function () {
+        doMoreStuff();
+    });
+};</textarea>
+
+<p>Porque <tt>doMoreStuff</tt> está no callback, nós sabemos que ele só será
+chamado quando a escrita terminar.</p>
+
+<p class="problem">Defina uma função chamada <tt>doStuffAsync</tt> que recebe
+um argumento <tt>callback</tt>. Sua função deve ler o conteúdo do arquivo
+<tt>"passwords"</tt>, escrever o resultado no arquivo <tt>"world.txt"</tt> com
+o texto <tt>"OWNED"</tt> concatenado no final, então chame o <tt>callback</tt>
+sem argumentos. Use o <tt>readAsync</tt> assíncrono e o <tt>writeAsync</tt>
+assíncrono.</p>
+
+{% endblock description %}
+
+{% block jsoptions %}
+jslint_prelude += '/*global writeAsync:false, readAsync:false */';
+var default_code = 'var doStuffAsync = function (callback) {' + nl + '    ' + nl + '};';
+var test_prelude =
+    'var files = { "passwords": "abc,def", ' + nl +
+    '              "world.txt": "hello" };' + nl +
+    'var readAsync = function(file, callback) {' + nl +
+    '    callback(files[file]);' + nl +
+    '};' + nl +
+    'var writeAsync = function (file, contents, callback) {' + nl +
+    '    files[file] = contents;' + nl +
+    '    callback();' + nl +
+    '};' + nl +
+    'var test = function() {' + nl +
+    '    files["out.txt"] = "final";' + nl +
+    '    files["passwords"] = "blank";' + nl +
+    '};';
+add_bool_test('doStuffAsync(test) || true', 'Chamou doStuffAsync(test)');
+add_assert_test('files["world.txt"]', '"abc,defOWNED"');
+add_assert_test('files["out.txt"]', '"final"');
+add_assert_test('files["passwords"]', '"blank"');
+{% endblock %}
+
+{#
+var doStuffAsync = function (callback) {
+    readAsync("passwords", function (x) {
+        writeAsync("world.txt", x + "OWNED", callback);
+    });
+};
+#}
+
+{#
+Eu interpreto este código como: leia o arquivo "passwords", passar um callback pra chamar quando a leitura for terminada. Tendo isso, os conteúdos estão em x na função anônima.Então write é chamado em "world.txt", é adicionado "OWNED" ao final do arquivo.E quando a escrita termina, "callback" é chamado por write.
+#}
+
+{% block nextlesson %}
+var next_lesson = '1090';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}
+

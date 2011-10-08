@@ -1,0 +1,103 @@
+{% extends "lesson.html" %}
+
+{% block title %}Funções aninhadas{% endblock %}
+
+{% block description %}
+<p>Dentro de uma função você pode definir e usar outras funções. Aqui temos
+um exemplo que mostra uma função ajudante que simplifica um cálculo complicado.</p>
+
+<textarea class="demo">var complicated = function (x) {
+    var f = function (y) {
+        return y * 3 + 1;
+    };
+    return f(f(x));
+};
+var y = complicated(2);
+// Agora y é 22</textarea>
+
+<p>Na definição de uma função você pode se referir aos argumentos da função mãe.
+Você também pode se referir a variáveis <i>fora</i> da função na função anexa.
+Aqui temos o mesmo exemplo, mas com uma constante <tt>1</tt> fabricada fora,
+como uma variável.</p>
+
+<textarea class="demo">var complicated = function (x) {
+    var c, f;
+    c = 1; // constante
+    f = function (y) {
+        // Nós podemos referenciar c daqui!
+        return y * 3 + c;
+    };
+    return f(f(x));
+};
+var y = complicated(2);
+// y ainda é 22 aqui</textarea>
+
+<p>Este foi nosso primeiro exemplo de closure! a função mãe
+<i>fecha-se sobre</i> a função filha, que por sua vez pode usar as variáveis
+da função mãe</p>
+
+<p>Uma coisa importante é quando uma função interna (filha) refere-se
+a argumentos da função de fora (mãe). Argumentos são como variáveis, você
+pode referenciá-los, você pode consultá-los de dentro da função interna
+da mesma forma.</p>
+
+<p>Aqui temos o exemplo de uma função <tt>create</tt> que recebe um arqgumento
+<tt>x</tt> e retorna uma função. A função retornada não recebe argumentos
+e retorna <tt>x</tt>.</p>
+
+<textarea class="demo">var create = function (x) {
+    var f = function () {
+        return x; // nós podemos acessar x aqui!
+    };
+    return f;
+};
+// create recebe um argumento e retorna uma função
+
+var g = create(42);
+// g é uma função não recebe argumentos agora
+
+var y = g();
+// y é 42 neste ponto</textarea>
+
+<p>No exemplo acima, mesmo depois da função <tt>create</tt> terminar, a função
+que ela retornou continua funcionando. Esta é a mágica dos closures, a
+referência ao <tt>x</tt> no escopo externo ainda é válida mesmo depois da
+função externa ter terminado.</p>
+<p>In the example above, even after the <tt>create</tt> function
+finishes the function it returns keeps working.  That's the
+magic of closures, the reference to <tt>x</tt> in the outer scope
+is still valid even after the outer function finishes. Profundo, não!?</p>
+
+<p>Então, o que é um closure? <b>Closure é uma função que tem o seu próprio
+ambiente.</b> Em JavaScript quando você passa um valor de função, você está
+passando por closures!</p>
+
+<p class="problem">Defina uma função chamada <tt>genesis</tt> que recebe
+dois argumentos <tt>x</tt> e <tt>y</tt>. Ela deve retornar uma função que
+sempre retorne <tt>x + y</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var genesis = function (x, y) {' + nl + '    ' + nl + '};';
+test_prelude = '';
+add_bool_test('myTypeOf(genesis) === "function"', 'genesis é uma função');
+add_bool_test('myTypeOf(genesis(1, 2)) === "function"', 'genesis(1, 2) é uma função');
+add_assert_test('genesis(1, 2)()', '3');
+add_assert_test('genesis(5, 3)()', '8');
+{% endblock %}
+
+{#
+var genesis = function (x, y) {
+    var f = function () {
+        return x + y;
+    };
+    return f;
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1070';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}
+

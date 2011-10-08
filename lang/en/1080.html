@@ -1,0 +1,73 @@
+{% extends "lesson.html" %}
+
+{% block title %}Private Data{% endblock %}
+
+{% block description %}
+
+<p>Once the outer function is done it doesn't have access to the outer
+scope any more.  Every time you invoke the outer function a new closure
+will be created with a distinct binding for the outer scope.  This leads
+to the conclusion that the closed over values are entirely private and
+hidden away from anyone except the inner function.</p>
+
+<p>This means we can use closures to provide some protection for hidden
+state.  In the <tt>makeCounter</tt> example, the only code that could
+update the <tt>count</tt> variable was the inner function.  If you create
+multiple counters, they each have a private <tt>count</tt> that is inaccessible
+to anyone else.</p>
+
+<p>Here's an example that shows how to create a single variable that is
+private.</p>
+
+<textarea class="demo">var counter = (function () {
+    var count, f;
+    count = 0;
+    f = function () {
+        count = count + 1;
+        return count;
+    };
+    return f;
+}());
+/* counter is now a function that takes no arguments
+   and returns a count */
+
+var a = counter(); // gets 1
+var b = counter(); // gets 2
+var c = counter(); // gets 3</textarea>
+
+<p>This is similar to the last example with <tt>makeCounter</tt>, but here
+there is just one <tt>counter</tt>.  Notice the <tt>()</tt> at the
+end of the definition of <tt>counter</tt>.  Also, the invocation
+has been wrapped in parentheses to make it easier to see (required by JSLint).</p>
+
+<p class="problem">Define a function named <tt>accumulator</tt> that 
+takes one argument and returns a running total of all the arguments
+it has seen.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var accumulator = (function () {' + nl + '    ' + nl + '}());';
+test_prelude = '';
+add_bool_test('myTypeOf(accumulator) === "function"', 'accumulator is a function');
+add_assert_test('accumulator(7)', '7');
+add_assert_test('accumulator(3)', '10');
+add_assert_test('accumulator(-8)', '2');
+{% endblock %}
+
+{#
+var accumulator = (function () {
+    var count, f;
+    count = 0;
+    f = function (x) {
+        count += x;
+        return count;
+    };
+    return f;
+}());
+#}
+
+{% block nextlesson %}
+var next_lesson = '1085';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}
