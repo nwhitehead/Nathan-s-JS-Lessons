@@ -11,3 +11,9 @@ JavaScript options and test cases.
 
 Copyright 2011, Nathan Whitehead.
 All files released under the GPL version 3.0.
+
+External components with separate copyright:
+CodeMirror
+JQPlot
+JSLint
+CoffeeScript (not currently used)
