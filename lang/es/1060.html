@@ -1,0 +1,98 @@
+{% extends "lesson.html" %}
+
+{% block title %}Nested Functions{% endblock %}
+
+{% block description %}
+<p>
+Inside a function you can define and use other functions.  Here's an
+example that shows a helper function to simplify a complicated calculation.</p>
+
+<textarea class="demo">var complicated = function (x) {
+    var f = function (y) {
+        return y * 3 + 1;
+    };
+    return f(f(x));
+};
+var y = complicated(2);
+// Now y is 22</textarea>
+
+<p>In the definition of a function you can refer to the arguments of the
+function.  You can also refer to variables <i>outside</i> the function
+in the enclosing function.  Here's the same example but with a constant
+<tt>1</tt> factored out as a variable.</p>
+
+<textarea class="demo">var complicated = function (x) {
+    var c, f;
+    c = 1; // constant
+    f = function (y) {
+        // We can refer to c in here!
+        return y * 3 + c;
+    };
+    return f(f(x));
+};
+var y = complicated(2);
+// y is still 22 here</textarea>
+
+<p>That was actually the first example of a closure!  The outer
+function <i>closes over</i> the inner functions, and the inner functions
+can use variables from the outer function.</p>
+
+<p>An important case is when the inner function refers to arguments
+from the enclosing outer function.  Arguments are like variables, you
+can refer to them from inside in the same way.</p>
+
+<p>Here is an example of a function <tt>create</tt> that takes an argument
+<tt>x</tt> and returns a new function.  The returned function takes
+no arguments and returns <tt>x</tt>.</p>
+
+<textarea class="demo">var create = function (x) {
+    var f = function () {
+        return x; // we can refer to x here!
+    };
+    return f;
+};
+// create takes one argument, creates a function
+
+var g = create(42);
+// g is a function that takes no arguments now
+
+var y = g();
+// y is 42 here</textarea>
+
+<p>In the example above, even after the <tt>create</tt> function
+finishes the function it returns keeps working.  That's the
+magic of closures, the reference to <tt>x</tt> in the outer scope
+is still valid even after the outer function finishes. Deep, man.</p>
+
+<p>So what is a closure?  <b>A closure is a function plus enclosing
+environment.</b>  In JavaScript when you're passing around function values,
+you're passing around closures!</p>
+
+<p class="problem">Define a function named <tt>genesis</tt> that 
+takes two arguments <tt>x</tt> and <tt>y</tt>.  It should return 
+a function that always returns <tt>x + y</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var genesis = function (x, y) {' + nl + '    ' + nl + '};';
+test_prelude = '';
+add_bool_test('myTypeOf(genesis) === "function"', 'genesis is a function');
+add_bool_test('myTypeOf(genesis(1, 2)) === "function"', 'genesis(1, 2) is a function');
+add_assert_test('genesis(1, 2)()', '3');
+add_assert_test('genesis(5, 3)()', '8');
+{% endblock %}
+
+{#
+var genesis = function (x, y) {
+    var f = function () {
+        return x + y;
+    };
+    return f;
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1070';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

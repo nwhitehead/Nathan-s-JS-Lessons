@@ -1,0 +1,79 @@
+{% extends "lesson.html" %}
+
+{% block title %}Stateful Closures{% endblock %}
+
+{% block description %}
+
+<p>A useful thing that closures can do is keep track of internal
+state.  Remember that a closure is created when an inner function refers
+to an outer function's variables.  So far we've just been reading the values,
+but we can <i>write</i> to them as well.</p>
+
+<p>Here's an example of a function that creates a counter.</p>
+
+<textarea class="demo">var makeCounter = function () {
+    var count, f;
+    count = 0;
+    f = function () {
+        count = count + 1;
+        return count;
+    };
+    return f;
+};
+var counter = makeCounter();
+/* counter is a function that takes no arguments
+   and returns a count */
+
+var a = counter(); // gets 1
+var b = counter(); // gets 2
+var c = counter(); // gets 3
+
+var counter2 = makeCounter(); // create another one
+var d = counter2(); // gets 1
+var e = counter2(); // gets 2
+var f = counter(); // gets 4 from first one</textarea>
+
+<p>Where is the state kept?  It's in the variable <tt>count</tt> in the
+outer scope.  Why are there two copies?  Each invocation of <tt>makeCounter</tt>
+creates a new scope for <tt>count</tt>, and the closure surrounding
+the inner function <tt>f</tt> captures that scope.</p>
+
+<p class="problem">Define a function named <tt>makeAccumulator</tt> that 
+takes no arguments.  It should create and return a function that takes
+one argument and returns a running total of all the arguments it has seen.
+E.g if <tt>f</tt> is the function returned by <tt>makeAccumulator</tt>, 
+the first time you call <tt>f(3)</tt> it should return <tt>3</tt>, then if you
+call <tt>f(2)</tt> is should return <tt>5</tt>.
+</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var makeAccumulator = function () {' + nl + '    ' + nl + '};';
+test_prelude = '';
+add_bool_test('myTypeOf(makeAccumulator) === "function"', 'makeAccumulator is a function');
+add_bool_test('myTypeOf(makeAccumulator()) === "function"', 'makeAccumulator() is a function');
+add_null_test('var acc = makeAccumulator();', 'Create acc');
+add_assert_test('acc(10)', '10');
+add_assert_test('acc(3)', '13');
+add_assert_test('acc(1)', '14');
+add_null_test('var acc2 = makeAccumulator();', 'Create acc2');
+add_assert_test('acc2(2)', '2');
+add_assert_test('acc2(9)', '11');
+{% endblock %}
+
+{#
+var makeAccumulator = function () {
+    var count, f;
+    count = 0;
+    f = function (x) {
+        count += x;
+        return count;
+    };
+    return f;
+};
+#}
+{% block nextlesson %}
+var next_lesson = '1080';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

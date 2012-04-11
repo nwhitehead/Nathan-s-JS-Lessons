@@ -1,0 +1,66 @@
+{% extends "lesson.html" %}
+
+{% block title %}Las Funciones son Valores{% endblock %}
+
+{% block description %}
+<p>
+Las funciones son valores en JavaScript.  As&iacute; como <tt>5</tt> es un valor
+que podes asignar a una variable, la funci&oacute;n que retorna un parametro 
+m&aacute;s uno es una valor que podes asignar a una varible <tt>agregarUno</tt>.
+</p>
+
+<p>Porque las funciones son valores, podes hacer un mont&oacute;n de cosas divertidas 
+con ellas.  Podes poner a todas en una lista.
+<p>
+
+<textarea class="demo">var f = function (x) {
+    return x + 1;
+};
+var g = function(x) {
+    return x * 2;
+};
+var lst = [f, g, f]; // una lista de funciones!
+var y = lst[1](5); // lo mismo que g(5)</textarea>
+
+<p>Porque las funciones son valores, podes enviar funciones como argumentos
+y retornarlas desde otras funciones. Ac&aacute; est&aacute; una definici&oacute;n de
+<tt>llamarDosVeces</tt> la cual recibe una funci&oacute;n <tt>f</tt> como un argumento
+y la invoca dos veces seguidas.</p>
+
+<textarea class="demo">var agregarUno = function (x) {
+    return x + 1;
+};
+var llamarDosVeces = function(f, x) {
+    return f(f(x));
+};
+var y = llamarDosVeces(agregarUno, 3);
+// => agregarUno(agregarUno(3)) => 5</textarea>
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>aplicarTest</tt> que 
+reciba dos argumentos, una funci&oacute;n <tt>f</tt> y un par&aacute;metro <tt>x</tt>.
+Tu funci&oacute;n deber&iacute;a retornar una lista que contenga <tt>x</tt>,
+la funci&oacute;n <tt>f</tt> con el valor de <tt>x</tt>, y la funci&oacute;n
+<tt>f</tt> con el valor <tt>0</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var aplicarTest = function () {' + nl + '    ' + nl + '};';
+test_prelude = 'var f = function (x) {\n    return x + 2;\n};\nvar g = function (x) {\n    return x * 3;\n};';
+add_bool_test('myTypeOf(aplicarTest) === "function"', 'aplicarTest es una funcion');
+add_assert_test('aplicarTest(f, 1)[0]', '1');
+add_assert_test('aplicarTest(f, 1)[1]', '3');
+add_assert_test('aplicarTest(f, 1)[2]', '2');
+add_bool_test('aplicarTest(f, 2).compareArrays([2, 4, 2])');
+add_bool_test('aplicarTest(g, 3).compareArrays([3, 9, 0])');
+{% endblock %}
+
+{#
+var aplicarTest = function (f, x) {
+    return [x, f(x), f(0)];
+};
+#}
+{% block nextlesson %}
+var next_lesson = '1050';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

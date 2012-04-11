@@ -1,0 +1,96 @@
+{% extends "closurebase.html" %}
+
+{% block content %}
+
+<h1>{% block title %}Title{% endblock %}</h1>
+
+{% block description %}Description{% endblock %}
+
+<div style="position:relative;">
+<textarea id="code"></textarea>
+<div id="nextlesson" class="nextlesson">
+    <a id="nextlesson_a1" href=""><img src="/gfx/next.png" /></a>
+    <a id="nextlesson_a2" href="">Next lesson</a>
+</div>
+<p id="cursor">1:1</p>
+</div>
+
+<div class="buttonbox">
+<input id="submitbutton" class="buttonleft" type="button" value="Submit" />
+<input id="toggleprelude" class="buttonright" type="button" value="Show prelude" />
+</div>
+<textarea id="prelude" class="prelude"></textarea>
+<div id="console" class="console"></div>
+
+<script src="/js/codemirror.js"></script>
+<link rel="stylesheet" href="/css/codemirror.css">
+<style>
+.CodeMirror-scroll {
+  height: {% block codeheight %}300{% endblock %}px;
+}
+</style>
+<script src="/js/codemirror_javascript.js"></script>
+<link rel="stylesheet" href="/css/nojw.css">
+<script src="/js/jslint.js"></script>
+
+<script>
+
+var lang = 'en';
+var nl = '\n';
+var jslint_options = {
+    "globals": [],
+    "indent": 4,
+    "maxerr": 50,
+    "white": true,
+    "sloppy": true
+};
+var jslint_prelude = '';
+var jslint_unused = 1;
+var default_code = '';
+var test_prelude = '';
+var console_delay = 60;
+var tests = [];
+var add_bool_test = function() {
+    test = {}
+    test.type = 'bool';
+    test.left = arguments[0];
+    test.desc = '';
+    if (arguments.length > 1) {
+        test.desc = arguments[1];
+    }
+    tests.push(test);
+};
+var add_null_test = function() {
+    test = {}
+    test.type = 'null';
+    test.left = arguments[0];
+    test.desc = '';
+    if (arguments.length > 1) {
+        test.desc = arguments[1];
+    }
+    tests.push(test);
+};
+var add_assert_test = function() {
+    test = {}
+    test.type = 'assert';
+    test.left = arguments[0];
+    test.right = arguments[1];
+    test.desc = '';
+    if (arguments.length > 2) {
+        test.desc = arguments[2];
+    }
+    tests.push(test);
+};
+
+{% block jsoptions %}
+{% endblock %}
+
+{% block nextlesson %}
+var next_lesson = '0';
+{% endblock %}
+
+</script>
+
+<script src="/js/dolesson.js"></script>
+
+{% endblock content %}
