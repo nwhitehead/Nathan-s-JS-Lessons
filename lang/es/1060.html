@@ -1,83 +1,84 @@
 {% extends "lesson.html" %}
 
-{% block title %}Nested Functions{% endblock %}
+{% block title %}Funciones Anidadas{% endblock %}
 
 {% block description %}
 <p>
-Inside a function you can define and use other functions.  Here's an
-example that shows a helper function to simplify a complicated calculation.</p>
+Dentro de una funci&oacute;n se puede definir y usar otra funci&oacute;n.  Ac&aacute; hay
+un ejemplo que muestra una funci&oacute;n auxiliar para simplificar un c&aacute;lculo complicado.</p>
 
-<textarea class="demo">var complicated = function (x) {
+<textarea class="demo">var complicado = function (x) {
     var f = function (y) {
         return y * 3 + 1;
     };
     return f(f(x));
 };
-var y = complicated(2);
-// Now y is 22</textarea>
+var y = complicado(2);
+// Ahora y es 22</textarea>
 
-<p>In the definition of a function you can refer to the arguments of the
-function.  You can also refer to variables <i>outside</i> the function
-in the enclosing function.  Here's the same example but with a constant
-<tt>1</tt> factored out as a variable.</p>
+<p>En la definici&oacute;n de una funci&oacute;n se puede referenciar a los argumentos de la
+funci&oacute;n padre. Tambi&eacute;n se puede referenciar a las variables <i>fuera</i> de la 
+funci&oacute;n anidada.  Ac&aacute; un ejemplo pero con la constante
+<tt>1</tt> factorizada como una variable.</p>
 
-<textarea class="demo">var complicated = function (x) {
+<textarea class="demo">var complicado = function (x) {
     var c, f;
-    c = 1; // constant
+    c = 1; // constante
     f = function (y) {
-        // We can refer to c in here!
+        // Aca podemos referenciar a c!
         return y * 3 + c;
     };
     return f(f(x));
 };
-var y = complicated(2);
-// y is still 22 here</textarea>
+var y = complicado(2);
+// y sigue siendo 22</textarea>
 
-<p>That was actually the first example of a closure!  The outer
-function <i>closes over</i> the inner functions, and the inner functions
-can use variables from the outer function.</p>
+<p>En realidad ese fue el primer ejemplo de una clausura (closure)!  La funci&oacute;n 
+externa <i>encierra</i> la funci&oacute;n interna, y sus funciones anidadas
+pueden usar variables de la funci&oacute;n externa.</p>
 
-<p>An important case is when the inner function refers to arguments
-from the enclosing outer function.  Arguments are like variables, you
-can refer to them from inside in the same way.</p>
+<p>Un caso importante es cuando la funci&oacute;n interna referencia a los argumentos 
+desde la funci&oacute;n externa.  Los argumentos son como variables, 
+podes referenciarlos desde la funci&oacute;n interna de la misma manera.</p>
 
-<p>Here is an example of a function <tt>create</tt> that takes an argument
-<tt>x</tt> and returns a new function.  The returned function takes
-no arguments and returns <tt>x</tt>.</p>
+<p>Ac&aacute; un ejemplo de una funci&oacute;n <tt>crear</tt> que recibe un argumento
+<tt>x</tt> y retorna una nueva funci&oacute;n.  La funci&oacute;n retornada no recibe
+argumentos y retorna <tt>x</tt>.</p>
 
-<textarea class="demo">var create = function (x) {
+<textarea class="demo">var crear = function (x) {
     var f = function () {
-        return x; // we can refer to x here!
+        return x; // podemos referenciar a x desde aca!
     };
     return f;
 };
-// create takes one argument, creates a function
+// crear recibe un argumento, crea una funcion
 
-var g = create(42);
-// g is a function that takes no arguments now
+var g = crear(42);
+// g es una funcion que no recibe argumentos ahora
 
 var y = g();
-// y is 42 here</textarea>
+// y es 42</textarea>
 
-<p>In the example above, even after the <tt>create</tt> function
-finishes the function it returns keeps working.  That's the
-magic of closures, the reference to <tt>x</tt> in the outer scope
-is still valid even after the outer function finishes. Deep, man.</p>
+<p>En el ejemplo anterior, incluso luego de que la funci&oacute;n <tt>crear</tt> 
+termina, la funci&oacute;n que retorna sigue trabajando.  Esa es la 
+magia de las clausuras, la referencia a <tt>x</tt> en el alcance externo
+sigue siendo v&aacute;lido incluso despu&eacute;s de que la funci&oacute;n externa termina.
+Profundo, compañero.</p>
 
-<p>So what is a closure?  <b>A closure is a function plus enclosing
-environment.</b>  In JavaScript when you're passing around function values,
-you're passing around closures!</p>
+<p>Entonces, que es una clausura?  <b>Una clausura es la funci&oacute;n mas el
+encierre de su entorno.</b>  En JavaScript cuando estamos enviando valores a una funci&oacute;n, 
+le estamos pasando tambi&eacute;n clausuras!</p>
 
-<p class="problem">Define a function named <tt>genesis</tt> that 
-takes two arguments <tt>x</tt> and <tt>y</tt>.  It should return 
-a function that always returns <tt>x + y</tt>.</p>
+<p class="problem">Definir una funci&oacute;n llamda <tt>genesis</tt> que  
+reciba dos argumentos <tt>x</tt> e <tt>y</tt>.  Debe retornar 
+una funci&oacute;n que siempre retorne <tt>x + y</tt>.</p>
 {% endblock description %}
 
 {% block jsoptions %}
 default_code = 'var genesis = function (x, y) {' + nl + '    ' + nl + '};';
 test_prelude = '';
-add_bool_test('myTypeOf(genesis) === "function"', 'genesis is a function');
-add_bool_test('myTypeOf(genesis(1, 2)) === "function"', 'genesis(1, 2) is a function');
+add_bool_test('myTypeOf(genesis) === "function"', 'genesis es una funcion');
+add_bool_test('myTypeOf(genesis(1, 2)) === "function"', 'genesis(1, 2) es una funcion');
 add_assert_test('genesis(1, 2)()', '3');
 add_assert_test('genesis(5, 3)()', '8');
 {% endblock %}
