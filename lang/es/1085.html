@@ -1,0 +1,143 @@
+{% extends "lesson.html" %}
+
+{% block title %}Callbacks Asincr&oacute;nicos{% endblock %}
+
+{% block description %}
+
+<p>Algunas veces las funciones pueden tomar mucho tiempo en retornar.
+Por ejemplo si llamas a una funci&oacute;n <tt>leer(archivo)</tt>, 
+la funci&oacute;n puede tener que detenerse y esperar a que el disco gire
+y b&uacute;sque en el lugar correcto antes de que la informaci&oacute;n este lista. 
+Si este archivo es en realidad una conexi&oacute;n socket a otro servidor en la nube,
+la funci&oacute;n tendr&aacute; que esperar hasta que el otro servidor responda.
+</p>
+
+<p>Esto puede ser un problema.  Por ejemplo, en el browser no queremos que
+la interfaz de usuario se congele mientras se obtienen los resultados desde Google
+Maps.  En el servidor, no queremos que un pedido que accede a una parte 
+raramente usada de la base de datos ponga en espera a todos los dem&aacute;s pedidos.
+</p>
+
+<p>Para nuestra suerte hay una soluci&oacute;n.
+En el modelo asincr&oacute;nico la funci&oacute;n <tt>leerAsinc</tt> acepta
+ambos par&aacute;metros <tt>archivo</tt> y <tt>callback</tt>.  La funci&oacute;n
+retorna inmediatamente antes de que el archivo sea le&iacute;do y programa
+la lectura para que suceda en alg&uacute;n momento en el futuro.
+Una vez que los datos est&aacute;n listos, la funci&oacute;n <tt>callback</tt> es
+llamada.</p>
+
+<p>Y que es un callback?  Es una clausura!
+Vamos a ver como usar funciones asincr&oacute;nicas; implementandolas
+de otra forma completamente distinta.
+</p>
+
+<p>El siguiente ejemplo muestra como usar&iacute;as una funci&oacute;n bloqueante
+normal <tt>leer</tt> para obtener el contenido de un archivo.</p>
+
+<textarea class="demo">var leerArchivo = function () {
+    var datos;
+    datos = leer('archivo.txt');
+    hacerAlgo('Contenido: ' + datos);
+};</textarea>
+
+<p>Luego tenemos el mismo ejemplo utilizando una funci&oacute;n asincr&oacute;nica <tt>leerAsinc</tt>.
+</p>
+
+<textarea class="demo">var leerArchivoAsinc = function () {
+    var func = function (x) {
+        /* Aca podes hacer cosas con el 
+           contenido x del archivo. */
+        hacerAlgo('Contenido: ' + x);
+    };
+    leerAsinc('archivo.txt', func);
+    /* Aca se pueden hacer mas cosas, pero no 
+       tenes acceso al contenido del archivo. func
+       puede o no haber sido llamada a este momento.*/
+    hacerMasCosas();
+};</textarea>
+
+<p>Alguien llama a <tt>leerArchivoAsinc</tt>.  Dentro de <tt>leerArchivoAsinc</tt>,
+<tt>leerAsinc</tt> es llamada con la funci&oacute;n callback <tt>func</tt>.  Una vez que 
+los datos est&aacute;n listos, <tt>leerAsinc</tt> llama a <tt>func</tt> con los datos.  Luego <tt>func</tt>
+llama a <tt>hacerAlgo</tt> con el string actualizado conteniendo los datos.
+Esto puede suceder antes, durante, o despu&eacute;s de la ejecuci&oacute;n de <tt>hacerMasCosas()</tt>.
+</p>
+
+<p>Escribir programas que utilizan callbacks asincr&oacute;nicos puede sentirse un poco
+extraño, pero nos puede ayudar un poco m&aacute;s utilizar funciones an&oacute;nimas.  
+Veamos el ejemplo anterior con una funci&oacute;n an&oacute;nima.</p>
+
+<textarea class="demo">var leerArchivoAsinc = function () {
+    leerAsinc('archivo.txt', function (x) {
+        /* Aca podes hacer cosas con el 
+           contenido x del archivo. */
+        hacerAlgo('Contenido: ' + x);
+    });
+    hacerMasCosas();
+};</textarea>
+
+<p>Otro ejemplo donde usamos la funci&oacute;n asincr&oacute;nica 
+<tt>escribirAsinc(archivo, contenido, callback)</tt>, pero en este caso el
+callback no recibe ning&uacute;n argumento, s&oacute;lo es llamado una vez 
+que la escritura finaliza.</p>
+
+<textarea class="demo">var escribirPuntajeAsinc = function (puntaje) {
+    var contenido = 'Su puntaje fue ' + puntaje;
+    leerAsinc('puntajes.txt', contenido, function () {
+        hacerMasCosas();
+    });
+};</textarea>
+
+<p>Como <tt>hacerMasCosas</tt> est&aacute; dentro del callback, nos aseguramos
+que s&oacute;lo sea llamado una vez que la escritura finaliza.</p>
+
+<p class="problem">
+Definir una funcion llamada <tt>hacerCosasAsinc</tt> que reciba un argumento 
+<tt>callback</tt>.  Tu funci&oacute;n deber&iacute;a
+leer el contenido del archivo <tt>"claves"</tt>,
+escribir el resultado en <tt>"palabras.txt"</tt> con el texto 
+extra <tt>"APROPIADA"</tt>, y luego llamar a <tt>callback</tt> sin argumentos.
+Utilizar ambos asincr&oacute;nicos <tt>leerAsinc</tt> y <tt>escribirAsinc</tt>.
+</p>
+{% endblock description %}
+
+{% block jsoptions %}
+jslint_prelude += '/*global escribirAsinc:false, leerAsinc:false */';
+var default_code = 'var hacerCosasAsinc = function (callback) {' + nl + '    ' + nl + '};';
+var test_prelude = 
+    'var archivos = { "claves": "abc,def", ' + nl +
+    '              "palabras.txt": "hola" };' + nl + 
+    'var leerAsinc = function(archivo, callback) {' + nl +
+    '    callback(archivos[archivo]);' + nl + 
+    '};' + nl +
+    'var escribirAsinc = function (archivo, contenido, callback) {' + nl +
+    '    archivos[archivo] = contenido;' + nl +
+    '    callback();' + nl +
+    '};' + nl + 
+    'var test = function() {' + nl +
+    '    archivos["salida.txt"] = "final";' + nl +
+    '    archivos["claves"] = "blanco";' + nl +
+    '};';
+add_bool_test('hacerCosasAsinc(test) || true', 'hacerCosasAsinc(test) llamada');
+add_assert_test('archivos["palabras.txt"]', '"abc,defAPROPIADA"');
+add_assert_test('archivos["salida.txt"]', '"final"');
+add_assert_test('archivos["claves"]', '"blanco"');
+{% endblock %}
+
+{#
+var hacerCosasAsinc = function (callback) {
+    leerAsinc("claves", function (x) {
+        escribirAsinc("palabras.txt", x + "APROPIADA", callback);
+    });
+};
+#}
+
+{#
+Yo interpreto este codigo como: leer el archivo "claves", enviandole un callback para ser llamado cuando la lectura finaliza. Una vez que la lectura finaliza, el contenido esta en x dentro de la funcion anonima. Luego la escritura es llamada en "palabras.txt", entonces x + "APROPIADA" es escrita en el archivo. Una vez que la escritura finaliza, "callback" es llamado por escribir.
+#}
+
+{% block nextlesson %}
+var next_lesson = '1090';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}

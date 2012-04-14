@@ -1,0 +1,58 @@
+{% extends "lesson.html" %}
+
+{% block title %}Definiendo Funciones{% endblock %}
+
+{% block description %}
+<p>Est&aacute;s yendo muy bien!
+</p>
+
+<p>
+Bueno, ahora que estamos familiarizados con las variables y sus valores en JavaScript,
+vamos a meternos en lo real, funciones.</p>
+
+<p>El siguiente ejemplo muestra una definici&oacute;n de una funci&oacute;n llamada <tt>masUno</tt>
+la cual agrega uno a su argumento.</p>
+<textarea class="demo">// Una funcion simple que agrega uno
+var masUno = function (x) {
+    return x + 1;
+};</textarea>
+
+<p>El c&oacute;digo que la utiliza para asignar el valor de 
+<tt>y</tt>.</p>
+<textarea class="demo">var y = masUno(10);</textarea>
+
+<p>La variable <tt>y</tt> es asignada con <tt>11</tt>, porque <tt>10 + 1</tt>
+es <tt>11</tt>.</p>
+
+<p>Las funciones pueden recibir mas de un argumento.  Est&aacute; es una funci&oacute;n
+que recibe dos argumentos.</p>
+
+<textarea class="demo">// Calcula la superficie de un rect&aacute;ngulo
+var superficie = function (base, altura) {
+    return base * altura;
+};</textarea>
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>add</tt> que reciba
+dos argumentos <tt>x</tt> e <tt>y</tt>, y retorne la suma de <tt>x</tt>
+e <tt>y</tt>.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var add = ';
+add_bool_test('myTypeOf(add) === "function"', 'add es una funcion');
+add_assert_test('add(2, 2)', '4');
+add_assert_test('add(1, 7)', '8');
+add_assert_test('add(-3, 0)', '-3');
+{% endblock %}
+
+{#
+var add = function (x, y) {
+    return x + y;
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1030';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}

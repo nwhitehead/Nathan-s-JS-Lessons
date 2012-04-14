@@ -1,0 +1,63 @@
+{% extends "lesson.html" %}
+
+{% block title %}Retornando Funciones{% endblock %}
+
+{% block description %}
+<p>
+As&iacute; como las funciones son valores, las funciones pueden retornar otras funciones.
+Esto puede ser increiblemente poderoso.
+</p>
+
+<textarea class="demo">var crearFuncion = function () {
+    var agregarUno = function (x) {
+        return x + 1;
+    };
+    return agregarUno; // retorna la funcion
+};
+// crearFuncion es una funcion sin argumentos
+
+var f = crearFuncion();
+// f es una funcion que recibe un argumento
+
+var y = f(3);
+// ahora y es 4</textarea>
+
+<p>Recuerda que hay una diferencia entre una funci&oacute;n y una funci&oacute;n
+aplicada a su argumento.  Es la diferencia entre <tt>f</tt>
+y <tt>f(x)</tt>.  Si una funci&oacute;n no recibe ningun argumento
+hay una diferencia.  <tt>crearFuncion</tt> es una funci&oacute;n que no recibe
+argumentos, <tt>crearFuncion()</tt> es el resultado de llamar a esa
+funci&oacute;n.  Lo que resulta en s&iacute; mismo otra funci&oacute;n...</p>
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>generar</tt> que
+reciba un argumento, una funci&oacute;n <tt>f</tt>.  Esta deber&iacute;a retornar un array
+que consiste en la funci&oacute;n <tt>f</tt> y otra funci&oacute;n que 
+duplica su entrada.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var generar = function () {' + nl + '    ' + nl + '};';
+test_prelude = 'var f = function (x) {\n    return x + 2;\n};';
+add_bool_test('myTypeOf(generar) === "function"', 'generar es una funcion');
+add_bool_test('myTypeOf(generar(f)) === "array"', 'generar(f) es un array');
+add_bool_test('myTypeOf(generar(f)[0]) === "function"', 'generar(f)[0] es una funcion');
+add_bool_test('myTypeOf(generar(f)[1]) === "function"', 'generar(f)[1] es una funcion');
+add_assert_test('generar(f)[0](1)', '3');
+add_assert_test('generar(f)[0](2)', '4');
+add_assert_test('generar(f)[1](6)', '12');
+{% endblock %}
+
+{#
+var generar = function (f) {
+    var doble = function (x) {
+        return 2 * x;
+    };
+    return [f, doble];
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1055';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

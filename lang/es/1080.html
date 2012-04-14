@@ -1,0 +1,73 @@
+{% extends "lesson.html" %}
+
+{% block title %}Datos Privados{% endblock %}
+
+{% block description %}
+
+<p>Una vez que la funci&oacute;n externa fue creada ya no tiene mas 
+acceso a su alcance externo. Cada vez que se invoca una funci&oacute;n externa
+se crear&aacute; una nueva clausura con un bindeo distinto al del 
+alcance externo. Esto lleva a la conclusi&oacute;n que el cierre sobre
+los valores es enteramente privado y los oculta de cualquier funci&oacute;n,
+menos la interna.</p>
+
+<p>Esto significa que podemos usar las clausuras para proveerle protecci&oacute;n 
+a los estados ocultos.  En el ejemplo de <tt>crearContador</tt>, el &uacute;nico 
+c&oacute;digo que puede actualizar la variable <tt>cuenta</tt> fue el de la funci&oacute;n 
+interna.  Si creamos m&uacute;ltiples contadores, cada uno tendr&aacute; una <tt>cuenta</tt> 
+privada que es inaccesible para cualquiera.</p>
+
+<p>En el siguiente ejemplo se muestra como crear una sola variable que es
+privada.</p>
+
+<textarea class="demo">var contador = (function () {
+    var cuenta, f;
+    cuenta = 0;
+    f = function () {
+        cuenta = cuenta + 1;
+        return cuenta;
+    };
+    return f;
+}());
+/* contador es ahora una funcion que no recibe 
+   argumentos y retorna cuenta */
+
+var a = contador(); // obtiene 1
+var b = contador(); // obtiene 2
+var c = contador(); // obtiene 3</textarea>
+
+<p>Este es un ejemplo similar al de <tt>crearContador</tt>, pero en este caso
+solo hay una <tt>cuenta</tt>.  Noten los <tt>()</tt> al final de la 
+definicio&oacute;n de <tt>contador</tt>.  Adem&aacute;s, la incovaci&oacute;n
+fue envuelta en parentesis para hacer simple su lectura (requerido por JSLint).</p>
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>acumulador</tt> que  
+no reciba argumentos y retorne el total actual de todos los argumentos vistos.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var acumulador = (function () {' + nl + '    ' + nl + '}());';
+test_prelude = '';
+add_bool_test('myTypeOf(acumulador) === "function"', 'acumulador es una funcion');
+add_assert_test('acumulador(7)', '7');
+add_assert_test('acumulador(3)', '10');
+add_assert_test('acumulador(-8)', '2');
+{% endblock %}
+
+{#
+var acumulador = (function () {
+    var cuenta, f;
+    cuenta = 0;
+    f = function (x) {
+        cuenta += x;
+        return cuenta;
+    };
+    return f;
+}());
+#}
+
+{% block nextlesson %}
+var next_lesson = '1085';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "lesson.html" %}
+
+{% block title %}Pasando Continuaci&oacute;n{% endblock %}
+
+{% block description %}
+
+<p>Una <i>continuaci&oacute;n</i> es una funci&oacute;n callback que representa
+que hacer despu&eacute;s.  Hacemos una llamada a una continuaci&oacute;n para continuar ejecutando instrucciones, 
+m&aacute;s que para retornar desde una funci&oacute;n.
+Si convert&iacute;s totalmente tu programa para que nunca use el return y s&oacute;lo
+llamas a continuaciones, has transformado tu programa en el estilo 
+<i>pasando-continuati&oacute;n</i>.  En el siguiente ejemplo se muestra una funci&oacute;n que agrega uno a
+un n&uacute;mero, en la forma normal y al estilo pasando-continuati&oacute;n.</p>
+
+<textarea class="demo">// normal
+var agregarUno = function (x) {
+    return x + 1;
+};
+
+// CPS (Estilo Pasando Continuacion)
+var agregarUnoCPS = function (x, retorno) {
+    retorno(x + 1);
+};</textarea>
+
+<p>En un estilo pasando-continuati&oacute;n, toda funcion recibe un argumento
+extra <tt>retorno</tt> el cual es llamado en vez de retornar.
+<i>Nunca nada se retorna!</i>  Algo loco.</p>
+
+<p>No estamos limitados a s&oacute;lo una continuaci&oacute;n.
+Supongamos que cada funci&oacute;n recibe una continuaci&oacute;n <tt>exito</tt> 
+y <tt>fracaso</tt>.  La funci&oacute;n <tt>agregarUno</tt> puede quedar asi:</p>
+
+<textarea class="demo">var agregarUnoC = function (x, exito, fracaso) {
+    if (x < 10) {
+        exito(x + 1);
+    } else {
+        // x es muy grande
+        fracaso();
+    }
+};</textarea>
+
+<p>En el siguiente ejemplo se muestra una operacion en secuencia <tt>secC</tt>.
+La funci&oacute;n <tt>secC</tt> recibe dos funciones <tt>fC</tt> y
+<tt>gC</tt>, inclu&iacute;das las continuaciones <tt>exito</tt> y <tt>fracaso</tt>.
+Las funciones <tt>fC</tt> y <tt>gC</tt> reciben tambi&eacute;n las continuaciones  
+<tt>exito</tt> y <tt>fracaso</tt>, las &uacute;ltimas dos no manipulan ningun dato.  El operador
+ <tt>secC</tt> ejecuta <tt>fC</tt> y si fue concretada con exito continua.  Si <tt>fC</tt>
+fracasa, entonces ejecuta <tt>gC</tt> y continua.</p>
+
+<textarea class="demo">var secC = function (fC, gC, exito, fracaso) {
+    var f_exito, f_fracaso;
+    f_exito = function () {
+        exito();
+    };
+    f_fracaso = function () {
+        var g_exito, g_fracaso;
+        g_exito = function () {
+            exito();
+        };
+        g_fracaso = function () {
+            fracaso();
+        };
+        gC(g_exito, g_fracaso);
+    };
+    fC(f_exito, f_fracaso);    
+};</textarea>
+
+<p>Este codigo puede ser mejorado.  Por ejemplo, podemos llamar directamente a
+ <tt>exito</tt> en vez de crear una funci&oacute;n <tt>f_exito</tt>.
+Esta ser&iacute;a una version simplicada.</p>
+
+<textarea class="demo">var secC = function (fC, gC, exito, fracaso) {
+    fC(exito, function () {
+        gC(exito, fracaso);
+    });
+};</textarea>
+
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>ambasC</tt> 
+similar a <tt>secC</tt> 
+que reciba las funciones <tt>fC</tt> y <tt>gC</tt> y las continuaciones
+<tt>exito</tt> y <tt>fracaso</tt>.
+Ambas funciones <tt>fC</tt> y <tt>gC</tt> s&oacute;lo reciben
+las continuaciones <tt>exito</tt> y <tt>fracaso</tt>.
+Tu funci&oacute;n <tt>ambasC</tt> deberia llamar a ambas <tt>fC</tt>
+y <tt>gC</tt> sin importar, pero solo llamar a <tt>exito</tt>
+si ambas resultan en exito, y a <tt>fracaso</tt> si ambas resultan en fracaso.  
+No lo olvides, tu funci&oacute;n nunca retornar&aacute;!
+</p>
+{% endblock description %}
+
+{% block jsoptions %}
+var default_code = 
+    'var ambasC = function (fC, gC, exito, fracaso) {' + nl + 
+    '    var f_exito, f_fracaso;' + nl + 
+    '    f_exito = function () {' + nl + 
+    '        ' + nl +
+    '    };' + nl +
+    '    f_fracaso = function () {' + nl + 
+    '        ' + nl +
+    '    };' + nl +
+    '};';
+var test_prelude = 
+    'var salida = "";' + nl +
+    'var hecho = function (m) {' + nl +
+    '    return function () {' + nl +
+    '        salida += m;' + nl +
+    '    };' + nl +
+    '};' + nl +
+    'var A = hecho("A");' + nl +
+    'var B = hecho("B");' + nl +
+    'var S = function (exito, fracaso) {' + nl +
+    '    salida += "S";' + nl +
+    '    exito();' + nl +
+    '};' + nl +
+    'var F = function (exito, fracaso) {' + nl +
+    '    salida += "F";' + nl +
+    '    fracaso();' + nl +
+    '};' + nl +
+    '';
+add_assert_test('ambasC(S, S, A, B)', 'undefined');
+add_assert_test('salida', '"SSA"');
+add_assert_test('ambasC(S, F, A, B)', 'undefined');
+add_assert_test('salida', '"SSASFB"');
+add_assert_test('ambasC(F, S, A, B)', 'undefined');
+add_assert_test('salida', '"SSASFBFSB"');
+add_assert_test('ambasC(F, F, A, B)', 'undefined');
+add_assert_test('salida', '"SSASFBFSBFFB"');
+{% endblock %}
+
+{#
+var ambasC = function (fC, gC, exito, fracaso) {
+    var f_exito, f_fracaso;
+    f_exito = function () {
+        gC(exito, fracaso);
+    };
+    f_fracaso = function () {
+        gC(fracaso, fracaso);
+    };
+    fC(f_exito, f_fracaso);    
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '9999';
+{% endblock %}
+
+{% block codeheight %}300{% endblock %}

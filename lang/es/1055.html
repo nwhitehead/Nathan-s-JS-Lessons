@@ -1,0 +1,94 @@
+{% extends "lesson.html" %}
+
+{% block title %}Alcance de Funci&oacute;n{% endblock %}
+
+{% block description %}
+<p>
+Muchos lenguajes tiene <i>alcance por bloque (block scope)</i>, lo que significa que una variable
+declarada al inicio de un bloque por ejemplo un <tt>if</tt> o un ciclo <tt>for</tt>  
+son v&aacute;lidas dentro de ese bloque.  JavaScript es un poco diferente, todas las variables
+tienen un <i>alcance de funci&oacute;n (function scope)</i>.</p>
+
+<p>Esto significa que <i>todas</i> las variables declaradas en una funci&oacute;n
+est&aacute;n disponibles en cualquier lugar de la functi&oacute;n.  El siguiente ejemplo
+ muestra como esto puede ser un poco sorpresivo.</p>
+
+<textarea class="demo">var vaca = "purpura"; // una vaca aleatoria
+
+var f = function (x) {
+    var r = 0;
+    vaca = "pegamento";
+    if (x > 3) {
+        var vaca = 1; // una variable local
+        r = 7;
+    }
+    return r;
+};
+
+var z = f(2); // ...</textarea>
+
+<p>La <tt>vaca</tt> se convirti&oacute; en <tt>"pegamento"</tt> cuando llamamos a <tt>f(2)</tt>?
+No, la <tt>vaca</tt> est&aacute; a salvo en el c&oacute;digo mas arriba porque la declaraci&oacute;n <tt>var vaca</tt>
+dentro del bloque <tt>if</tt> aplica a <i>toda la funci&oacute;n</i>.
+Esto significa que <tt>vaca</tt> es una variable local para toda la funci&oacute;n.
+</p>
+
+<p>Para satisfacer tus curiosidades morbosas de la especie bovina, en esta version <i>realmente</i>
+convierte la <tt>vaca</tt> en <tt>pegamento</tt>.</p>
+
+<textarea class="demo">var vaca = "purpura"; // una vaca aleatoria
+
+var f = function (x) {
+    var r = 0;
+    vaca = "pegamento";
+    if (x > 3) {
+        r = 7;
+    }
+    return r;
+};
+
+var z = f(2); // pobre vaca</textarea>
+
+<p>Por este tipo de comportamiento sorpresivo, cuando escribas una funci&oacute;n
+deber&iacute;as siempre declarar todas tus variables justo al inicio asi
+no te confundis. Un ejemplo que declara variables
+al inicio.</p>
+
+<textarea class="demo">var mean = function (a, b) {
+    var suma, producto, dif;
+    suma = a + b;
+    producto = a * b;
+    dif = suma - producto;
+    return dif;
+};</textarea>
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>llamarFunc</tt> que 
+reciba un argumento, una funci&oacute;n <tt>f</tt>.
+Debe retornar un array con los valores <tt>f(0)</tt>,
+<tt>f(0)</tt>, <tt>f(1)</tt>, <tt>f(1)</tt>.  Solo se puede llamar a <tt>f</tt> dos veces.
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var llamarFunc = function (f) {' + nl + '    ' + nl + '};';
+test_prelude = 'var count = 0;\nvar f = function (x) {\n    count += 1;\n    return x + 2;\n};';
+add_bool_test('myTypeOf(llamarFunc) === "function"', 'llamarFunc es una funcion');
+add_bool_test('myTypeOf(llamarFunc(f)) === "array"', 'llamarFunc(f) es un array');
+add_bool_test('count <= 2');
+add_bool_test('llamarFunc(f).compareArrays([2, 2, 3, 3])');
+add_bool_test('count <= 4');
+{% endblock %}
+
+{#
+var llamarFunc = function (f) {
+    var f0, f1;
+    f0 = f(0);
+    f1 = f(1);
+    return [f0, f0, f1, f1];
+};
+#}
+
+{% block nextlesson %}
+var next_lesson = '1060';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

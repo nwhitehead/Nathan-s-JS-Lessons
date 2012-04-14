@@ -1,0 +1,52 @@
+{% extends "lesson.html" %}
+
+{% block title %}Que es una Clausura (Closure)?{% endblock %}
+
+{% block description %}
+<p>
+Alguna vez te preguntaste que son las clausuras y c&oacute;mo funcionan?
+Aprende este concepto avanzado de programaci&oacute;n en este momento
+a traves de lecciones interactivas en Javascript.
+</p>
+
+<p>Empecemos!</p>
+
+<div class="hr"></div>
+
+<p>Un ejemplo de c&oacute;digo escrito en Javascript. No se v&eacute; bonito?</p>
+
+<textarea class="demo">var f = function (x) {
+    return x + 1;
+}</textarea>
+
+<p>No te preocupes!, no vamos a s&oacute;lo sentarnos y mirar c&oacute;digo bonito.
+	Vamos a estar escribiendo c&oacute;digo!</p>
+
+<h2>Variables</h2>
+
+<p>Este c&oacute;digo declara que <tt>x</tt> es una variable, y
+luego a <tt>x</tt> le asignamos el valor <tt>5</tt>.</p>
+
+<textarea class="demo">var x;
+x = 5;</textarea>
+
+<p class="problem">Ahora es tu turno. Declara que <tt>y</tt> es una variable y luego
+asignale el valor <tt>7</tt>.  Click en "aplicar" cuando creas que lo tienes.</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var ';
+add_bool_test('typeof y === "number"', 'y es un numero');
+add_assert_test('y', '7');
+{% endblock %}
+
+{#
+var y;
+y = 7;
+#}
+
+{% block nextlesson %}
+var next_lesson = '1010';
+{% endblock %}
+
+{% block codeheight %}150{% endblock %}

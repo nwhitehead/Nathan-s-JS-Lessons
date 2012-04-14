@@ -1,0 +1,79 @@
+{% extends "lesson.html" %}
+
+{% block title %}Clausuras con Estado{% endblock %}
+
+{% block description %}
+
+<p>Algo &uacute;til que las clausuras pueden hacer es guardar el estado interno.  
+ Recuerda que una clausura es creada cuando una funci&oacute;n interna referencia 
+a una variable de la funci&oacute;n externa.  Hasta ahora solo estuvimos leyendo los valores,
+pero podemos <i>escribirlos</i> tambi&eacute;n.</p>
+
+<p>Este es un ejemplo de una funci&oacute;n que crea un contador.</p>
+
+<textarea class="demo">var crearContador = function () {
+    var cuenta, f;
+    cuenta = 0;
+    f = function () {
+        cuenta = cuenta + 1;
+        return cuenta;
+    };
+    return f;
+};
+var contador = crearContador();
+/* contador es una funcion que no recibe argumentos
+   y retorna una cuenta */
+
+var a = contador(); // obtiene 1
+var b = contador(); // obtiene 2
+var c = contador(); // obtiene 3
+
+var contador2 = crearContador(); // crear otro mas
+var d = contador2(); // obtiene 1
+var e = contador2(); // obtiene 2
+var f = contador(); // obtiene 4 del primero</textarea>
+
+<p>Donde es guardado el estado?  Est&aacute; en la variable <tt>cuenta</tt> en el 
+alcance externo.  Por qu&eacute; hay dos copias?  Cada invocaci&oacute;n de <tt>crearContador</tt>
+crea un nuevo alcance de <tt>cuenta</tt>, y la clausura circundante
+a la funci&oacute;n interna <tt>f</tt> captura ese alcance.</p>
+
+<p class="problem">Definir una funci&oacute;n llamada <tt>hacerAcumulador</tt> que 
+no recibe argumentos.  Deber&iacute;a crear y retornar una funci&oacute;n que reciba
+un argumento y retorne el total de todos los argumentos que se han visto.
+Ej: si <tt>f</tt> es una funci&oacute;n retornada por <tt>hacerAcumulador</tt>, 
+la primera vez que se llama <tt>f(3)</tt> deber&iacute;a retornar <tt>3</tt>, si se llama
+luego a <tt>f(2)</tt> deber&iacute;a retornar <tt>5</tt>.
+</p>
+{% endblock description %}
+
+{% block jsoptions %}
+default_code = 'var hacerAcumulador = function () {' + nl + '    ' + nl + '};';
+test_prelude = '';
+add_bool_test('myTypeOf(hacerAcumulador) === "function"', 'hacerAcumulador es una funcion');
+add_bool_test('myTypeOf(hacerAcumulador()) === "function"', 'hacerAcumulador() es una funcion');
+add_null_test('var acc = hacerAcumulador();', 'Crea acc');
+add_assert_test('acc(10)', '10');
+add_assert_test('acc(3)', '13');
+add_assert_test('acc(1)', '14');
+add_null_test('var acc2 = hacerAcumulador();', 'Crea acc2');
+add_assert_test('acc2(2)', '2');
+add_assert_test('acc2(9)', '11');
+{% endblock %}
+
+{#
+var hacerAcumulador = function () {
+    var cuenta, f;
+    cuenta = 0;
+    f = function (x) {
+        cuenta += x;
+        return cuenta;
+    };
+    return f;
+};
+#}
+{% block nextlesson %}
+var next_lesson = '1080';
+{% endblock %}
+
+{% block codeheight %}200{% endblock %}

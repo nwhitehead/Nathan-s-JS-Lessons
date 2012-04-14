@@ -37,9 +37,9 @@ type='text/javascript'></script>
     <img src="/gfx/logo2.png" class="logo" />
     {% if user %}
         <p class="top">{{ user.nickname }}
-        [<a href="{{ logout }}"><b>sign out</b></a>]</p>
+        [<a href="{{ logout }}"><b>salir</b></a>]</p>
     {% else %}
-        <p class="top">[<a href="{{ login }}"><b>sign in</b></a>]</p>
+        <p class="top">[<a href="{{ login }}"><b>ingresar</b></a>]</p>
     {% endif %}
 </div>
 <div class="scissors">
@@ -48,27 +48,27 @@ type='text/javascript'></script>
 
 <div class="bothsides">
     <div class="leftside">
-<p>What's a Closure?
+<p>Que es una Clausura?
 <ol>
-    <li><a href="/lesson?id=1000&lang=br">O que é Closure?</a></li>
-    <li><a href="/lesson?id=1010&lang=br">Variáveis e valores</a></li>
-    <li><a href="/lesson?id=1020&lang=br">Definindo funções</a></li>
-    <li><a href="/lesson?id=1030&lang=br">Efeitos paralelos</a></li>
-    <li><a href="/lesson?id=1040&lang=br">Funções são valores</a></li>
-    <li><a href="/lesson?id=1050&lang=br">Retornando funções</a></li>
-    <li><a href="/lesson?id=1055&lang=br">Escopo da função</a></li>
-    <li><a href="/lesson?id=1060&lang=br">Funções aninhadas</a></li>
-    <li><a href="/lesson?id=1070&lang=br">Cada Closures com seu estado</a></li>
-    <li><a href="/lesson?id=1080&lang=br">Dados Privados</a></li>
-    <li><a href="/lesson?id=1085&lang=br">Callbacks assíncronos</a></li>
-    <li><a href="/lesson?id=1090&lang=br">Passando uma continuação</a></li>
+    <li><a href="/lesson?id=1000&lang=es">Que es una Clausura (Closure)?</a></li>
+    <li><a href="/lesson?id=1010&lang=es">Variables y Valores</a></li>
+    <li><a href="/lesson?id=1020&lang=es">Definiendo Funciones</a></li>
+    <li><a href="/lesson?id=1030&lang=es">Efectos Secundarios</a></li>
+    <li><a href="/lesson?id=1040&lang=es">Las Funciones son Valores</a></li>
+    <li><a href="/lesson?id=1050&lang=es">Retornando Funciones</a></li>
+    <li><a href="/lesson?id=1055&lang=es">Alcance de Funci&oacute;n</a></li>
+    <li><a href="/lesson?id=1060&lang=es">Funciones Anidadas</a></li>
+    <li><a href="/lesson?id=1070&lang=es">Clausuras con Estado</a></li>
+    <li><a href="/lesson?id=1080&lang=es">Datos Privados</a></li>
+    <li><a href="/lesson?id=1085&lang=es">Callbacks Asincr&oacute;nicos</a></li>
+    <li><a href="/lesson?id=1090&lang=es">Pasando Continuaci&oacute;n</a></li>
 </ol>
 </p>
     </div>
 
     <div class="content">
     {% block content %}
-    Hello world!
+    Hola Mundo!
     {% endblock content %}
     </div>
 </div>
@@ -82,8 +82,8 @@ type='text/javascript'></script>
   <a href="/lesson?id=1000&lang=br"><img src="/gfx/Brazil.png" /></a>
   <a href="/lesson?id=1000&lang=es"><img src="/gfx/arg-esp.png" /></a>
   <a href="/about">about</a>
-  <a href="/news">news</a>
-  <a href="/">main</a></p>
+  <a href="/news">noticias</a>
+  <a href="/">inicio</a></p>
 <p class="copyright">&copy;2011,  Nathan Whitehead</p>
 </div>
 {% endblock footer %}
