@@ -10,15 +10,15 @@ m&aacute;s que para retornar desde una funci&oacute;n.
 Si convert&iacute;s totalmente tu programa para que nunca use el return y s&oacute;lo
 llamas a continuaciones, has transformado tu programa en el estilo 
 <i>pasando-continuati&oacute;n</i>.  En el siguiente ejemplo se muestra una funci&oacute;n que agrega uno a
-un n&uacute;mero, en la forma regular y al estilo pasando-continuati&oacute;n.</p>
+un n&uacute;mero, en la forma normal y al estilo pasando-continuati&oacute;n.</p>
 
-<textarea class="demo">// regular
+<textarea class="demo">// normal
 var agregarUno = function (x) {
     return x + 1;
 };
 
-// CPS (Continuation Passing Style / Estilo Pasando Continuacion)
-var agregarUnoCPS = function (x, ret) {
+// CPS (Estilo Pasando Continuacion)
+var agregarUnoCPS = function (x, retorno) {
     retorno(x + 1);
 };</textarea>
 
@@ -28,7 +28,7 @@ extra <tt>retorno</tt> el cual es llamado en vez de retornar.
 
 <p>No estamos limitados a s&oacute;lo una continuaci&oacute;n.
 Supongamos que cada funci&oacute;n recibe una continuaci&oacute;n <tt>exito</tt> 
-y <tt>fracaso</tt>.  Ahi es cuando <tt>agregarUno</tt> puede quedar asi:</p>
+y <tt>fracaso</tt>.  La funci&oacute;n <tt>agregarUno</tt> puede quedar asi:</p>
 
 <textarea class="demo">var agregarUnoC = function (x, exito, fracaso) {
     if (x < 10) {
@@ -43,7 +43,7 @@ y <tt>fracaso</tt>.  Ahi es cuando <tt>agregarUno</tt> puede quedar asi:</p>
 La funci&oacute;n <tt>secC</tt> recibe dos funciones <tt>fC</tt> y
 <tt>gC</tt>, inclu&iacute;das las continuaciones <tt>exito</tt> y <tt>fracaso</tt>.
 Las funciones <tt>fC</tt> y <tt>gC</tt> reciben tambi&eacute;n las continuaciones  
-<tt>exito</tt> y <tt>fracaso</tt>, ellas no manipulan ningun dato.  El operador
+<tt>exito</tt> y <tt>fracaso</tt>, las &uacute;ltimas dos no manipulan ningun dato.  El operador
  <tt>secC</tt> ejecuta <tt>fC</tt> y si fue concretada con exito continua.  Si <tt>fC</tt>
 fracasa, entonces ejecuta <tt>gC</tt> y continua.</p>
 
@@ -65,8 +65,8 @@ fracasa, entonces ejecuta <tt>gC</tt> y continua.</p>
     fC(f_exito, f_fracaso);    
 };</textarea>
 
-<p>Este codigo puede ser mejorado.  Por ejemplo, podemos decir
- <tt>exito</tt> en vez de <tt>f_exito</tt>.
+<p>Este codigo puede ser mejorado.  Por ejemplo, podemos llamar directamente a
+ <tt>exito</tt> en vez de crear una funci&oacute;n <tt>f_exito</tt>.
 Esta ser&iacute;a una version simplicada.</p>
 
 <textarea class="demo">var secC = function (fC, gC, exito, fracaso) {
@@ -83,9 +83,9 @@ que reciba las funciones <tt>fC</tt> y <tt>gC</tt> y las continuaciones
 Ambas funciones <tt>fC</tt> y <tt>gC</tt> s&oacute;lo reciben
 las continuaciones <tt>exito</tt> y <tt>fracaso</tt>.
 Tu funci&oacute;n <tt>ambasC</tt> deberia llamar a ambas <tt>fC</tt>
-y <tt>gC</tt> sin importar nada, pero solo llamar a <tt>exito</tt>
-si ambas resultan en exito, y a <tt>fracaso</tt> en caso contrario.  No lo olvides, tu funci&oacute;n
-nunca retornar&aacute;!
+y <tt>gC</tt> sin importar, pero solo llamar a <tt>exito</tt>
+si ambas resultan en exito, y a <tt>fracaso</tt> si ambas resultan en fracaso.  
+No lo olvides, tu funci&oacute;n nunca retornar&aacute;!
 </p>
 {% endblock description %}
 

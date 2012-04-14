@@ -4,8 +4,8 @@
 
 {% block description %}
 
-<p>Una vez que la funci&oacute;n externa esta hecha ya no tiene mas 
-acceso a su alcance externo. Cada vez que se invoca una funcion externa
+<p>Una vez que la funci&oacute;n externa fue creada ya no tiene mas 
+acceso a su alcance externo. Cada vez que se invoca una funci&oacute;n externa
 se crear&aacute; una nueva clausura con un bindeo distinto al del 
 alcance externo. Esto lleva a la conclusi&oacute;n que el cierre sobre
 los valores es enteramente privado y los oculta de cualquier funci&oacute;n,
@@ -29,8 +29,8 @@ privada.</p>
     };
     return f;
 }());
-/* contador es ahora una funcion que no recibe argumentos
-   y retorna cuenta */
+/* contador es ahora una funcion que no recibe 
+   argumentos y retorna cuenta */
 
 var a = contador(); // obtiene 1
 var b = contador(); // obtiene 2

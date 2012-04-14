@@ -52,19 +52,19 @@ normal <tt>leer</tt> para obtener el contenido de un archivo.</p>
     leerAsinc('archivo.txt', func);
     /* Aca se pueden hacer mas cosas, pero no 
        tenes acceso al contenido del archivo. func
-       puede o no haber sido llamada a este momento. */
+       puede o no haber sido llamada a este momento.*/
     hacerMasCosas();
 };</textarea>
 
 <p>Alguien llama a <tt>leerArchivoAsinc</tt>.  Dentro de <tt>leerArchivoAsinc</tt>,
-<tt>leerAsinc</tt> es llamada con la funcion callback <tt>func</tt>.  Una vez que 
+<tt>leerAsinc</tt> es llamada con la funci&oacute;n callback <tt>func</tt>.  Una vez que 
 los datos est&aacute;n listos, <tt>leerAsinc</tt> llama a <tt>func</tt> con los datos.  Luego <tt>func</tt>
 llama a <tt>hacerAlgo</tt> con el string actualizado conteniendo los datos.
-Esto puede suceder antes, dureante, o despu&eacute;s de la ejecuci&oacute;n de <tt>hacerMasCosas()</tt>.
+Esto puede suceder antes, durante, o despu&eacute;s de la ejecuci&oacute;n de <tt>hacerMasCosas()</tt>.
 </p>
 
 <p>Escribir programas que utilizan callbacks asincr&oacute;nicos puede sentirse un poco
-fuera de lugar.  Puede ayudar un poco m&aacute;s utilizar funciones an&oacute;nimas.  
+extraño, pero nos puede ayudar un poco m&aacute;s utilizar funciones an&oacute;nimas.  
 Veamos el ejemplo anterior con una funci&oacute;n an&oacute;nima.</p>
 
 <textarea class="demo">var leerArchivoAsinc = function () {
@@ -77,7 +77,7 @@ Veamos el ejemplo anterior con una funci&oacute;n an&oacute;nima.</p>
 };</textarea>
 
 <p>Otro ejemplo donde usamos la funci&oacute;n asincr&oacute;nica 
-<tt>escribirAsinc(archivo, contenido, callback)</tt>.  En este caso el
+<tt>escribirAsinc(archivo, contenido, callback)</tt>, pero en este caso el
 callback no recibe ning&uacute;n argumento, s&oacute;lo es llamado una vez 
 que la escritura finaliza.</p>
 
@@ -96,7 +96,7 @@ Definir una funcion llamada <tt>hacerCosasAsinc</tt> que reciba un argumento
 <tt>callback</tt>.  Tu funci&oacute;n deber&iacute;a
 leer el contenido del archivo <tt>"claves"</tt>,
 escribir el resultado en <tt>"palabras.txt"</tt> con el texto 
-extra <tt>"APROPIADO"</tt>, y luego llamar a <tt>callback</tt> sin argumentos.
+extra <tt>"APROPIADA"</tt>, y luego llamar a <tt>callback</tt> sin argumentos.
 Utilizar ambos asincr&oacute;nicos <tt>leerAsinc</tt> y <tt>escribirAsinc</tt>.
 </p>
 {% endblock description %}

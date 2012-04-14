@@ -9,7 +9,7 @@
 a una variable de la funci&oacute;n externa.  Hasta ahora solo estuvimos leyendo los valores,
 pero podemos <i>escribirlos</i> tambi&eacute;n.</p>
 
-<p>Ac&aacute; hay un ejemplo de una funci&oacute;n que crea un contador.</p>
+<p>Este es un ejemplo de una funci&oacute;n que crea un contador.</p>
 
 <textarea class="demo">var crearContador = function () {
     var cuenta, f;
@@ -31,23 +31,16 @@ var c = contador(); // obtiene 3
 var contador2 = crearContador(); // crear otro mas
 var d = contador2(); // obtiene 1
 var e = contador2(); // obtiene 2
-var f = contador(); // obtiene 4 desde el primero</textarea>
+var f = contador(); // obtiene 4 del primero</textarea>
 
 <p>Donde es guardado el estado?  Est&aacute; en la variable <tt>cuenta</tt> en el 
 alcance externo.  Por qu&eacute; hay dos copias?  Cada invocaci&oacute;n de <tt>crearContador</tt>
 crea un nuevo alcance de <tt>cuenta</tt>, y la clausura circundante
 a la funci&oacute;n interna <tt>f</tt> captura ese alcance.</p>
 
-<p class="problem">Define a function named <tt>makeAccumulator</tt> that 
-takes no arguments.  It should create and return a function that takes
-one argument and returns a running total of all the arguments it has seen.
-E.g if <tt>f</tt> is the function returned by <tt>makeAccumulator</tt>, 
-the first time you call <tt>f(3)</tt> it should return <tt>3</tt>, then if you
-call <tt>f(2)</tt> is should return <tt>5</tt>.
-</p>
 <p class="problem">Definir una funci&oacute;n llamada <tt>hacerAcumulador</tt> que 
 no recibe argumentos.  Deber&iacute;a crear y retornar una funci&oacute;n que reciba
-un argumento y retorne el corriente total de todos los argumentos que se han visto.
+un argumento y retorne el total de todos los argumentos que se han visto.
 Ej: si <tt>f</tt> es una funci&oacute;n retornada por <tt>hacerAcumulador</tt>, 
 la primera vez que se llama <tt>f(3)</tt> deber&iacute;a retornar <tt>3</tt>, si se llama
 luego a <tt>f(2)</tt> deber&iacute;a retornar <tt>5</tt>.

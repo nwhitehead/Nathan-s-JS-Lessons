@@ -37,9 +37,9 @@ type='text/javascript'></script>
     <img src="/gfx/logo2.png" class="logo" />
     {% if user %}
         <p class="top">{{ user.nickname }}
-        [<a href="{{ logout }}"><b>sign out</b></a>]</p>
+        [<a href="{{ logout }}"><b>salir</b></a>]</p>
     {% else %}
-        <p class="top">[<a href="{{ login }}"><b>sign in</b></a>]</p>
+        <p class="top">[<a href="{{ login }}"><b>ingresar</b></a>]</p>
     {% endif %}
 </div>
 <div class="scissors">
@@ -48,7 +48,7 @@ type='text/javascript'></script>
 
 <div class="bothsides">
     <div class="leftside">
-<p>What's a Closure?
+<p>Que es una Clausura?
 <ol>
     <li><a href="/lesson?id=1000">Que es una Clausura (Closure)?</a></li>
     <li><a href="/lesson?id=1010">Variables y Valores</a></li>
@@ -82,8 +82,8 @@ type='text/javascript'></script>
   <a href="/lesson?id=1000&lang=br"><img src="/gfx/Brazil.png" /></a>
   <a href="/lesson?id=1000&lang=es"><img src="/gfx/arg-esp.png" /></a>
   <a href="/about">about</a>
-  <a href="/news">news</a>
-  <a href="/">main</a></p>
+  <a href="/news">noticias</a>
+  <a href="/">inicio</a></p>
 <p class="copyright">&copy;2011,  Nathan Whitehead</p>
 </div>
 {% endblock footer %}

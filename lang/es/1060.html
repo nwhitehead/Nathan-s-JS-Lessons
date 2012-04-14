@@ -4,8 +4,8 @@
 
 {% block description %}
 <p>
-Dentro de una funci&oacute;n se puede definir y usar otra funci&oacute;n.  Ac&aacute; hay
-un ejemplo que muestra una funci&oacute;n auxiliar para simplificar un c&aacute;lculo complicado.</p>
+Dentro de una funci&oacute;n se puede definir y usar otra funci&oacute;n.  El siguiente
+ejemplo muestra una funci&oacute;n auxiliar para simplificar un c&aacute;lculo complicado.</p>
 
 <textarea class="demo">var complicado = function (x) {
     var f = function (y) {
@@ -18,7 +18,7 @@ var y = complicado(2);
 
 <p>En la definici&oacute;n de una funci&oacute;n se puede referenciar a los argumentos de la
 funci&oacute;n padre. Tambi&eacute;n se puede referenciar a las variables <i>fuera</i> de la 
-funci&oacute;n anidada.  Ac&aacute; un ejemplo pero con la constante
+funci&oacute;n anidada.  Un ejemplo pero con la constante
 <tt>1</tt> factorizada como una variable.</p>
 
 <textarea class="demo">var complicado = function (x) {
@@ -41,7 +41,7 @@ pueden usar variables de la funci&oacute;n externa.</p>
 desde la funci&oacute;n externa.  Los argumentos son como variables, 
 podes referenciarlos desde la funci&oacute;n interna de la misma manera.</p>
 
-<p>Ac&aacute; un ejemplo de una funci&oacute;n <tt>crear</tt> que recibe un argumento
+<p>El siguiente ejemplo muestra una funci&oacute;n <tt>crear</tt> que recibe un argumento
 <tt>x</tt> y retorna una nueva funci&oacute;n.  La funci&oacute;n retornada no recibe
 argumentos y retorna <tt>x</tt>.</p>
 
@@ -63,7 +63,7 @@ var y = g();
 termina, la funci&oacute;n que retorna sigue trabajando.  Esa es la 
 magia de las clausuras, la referencia a <tt>x</tt> en el alcance externo
 sigue siendo v&aacute;lido incluso despu&eacute;s de que la funci&oacute;n externa termina.
-Profundo, compañero.</p>
+Profundo, no?.</p>
 
 <p>Entonces, que es una clausura?  <b>Una clausura es la funci&oacute;n mas el
 encierre de su entorno.</b>  En JavaScript cuando estamos enviando valores a una funci&oacute;n, 

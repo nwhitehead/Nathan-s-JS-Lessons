@@ -4,7 +4,7 @@
 
 {% block description %}
 <p>
-Las funciones pueden hacer mas que solo retornar valores.  Tambi&eacute;n pueden
+Las funciones pueden hacer m&aacute;s que solo retornar valores.  Tambi&eacute;n pueden
 tener efectos secundarios.  <font size="-1">*Efecto secundario es un ejercicio que puede 
 incluir insomia, sudor, y una sensacion sobre natural de euforia.</font></p>
 
@@ -23,19 +23,19 @@ x = doble(6);
 // Que es vaca ahora?</textarea>
 
 <p>Que pas&oacute;?  La variable <tt>vaca</tt> es asignada con <tt>"dormilona"</tt>,
-luego <tt>x</tt> es asignada con <tt>12</tt>.  Pero de repente, de la nada,
+luego <tt>x</tt> es asignada con <tt>12</tt>.  Pero de repente, de la nada
 <tt>vaca</tt> es asignada con <tt>"purpura"</tt>.  Lo podes ver en la definici&oacute;n
 de <tt>doble</tt>.  La funci&oacute;n realiza su trabajo de duplicar la entrada,
-pero tiene un efecto secundario de asignar a <tt>vaca</tt> desde afuera de la funci&oacute;n
+pero tiene el efecto secundario de asignar a <tt>vaca</tt> desde afuera de la funci&oacute;n
 con <tt>"purpura"</tt>.</p>
 
-<p>Esto es diferente a las funciones matem&aacute;ticas regulares.  En matem&aacute;tica,
-las funciones solo relacionan entradas con salidas. No poseen ning&uacute;na 
+<p>Esto es diferente a las funciones matem&aacute;ticas normales.  En matem&aacute;tica,
+las funciones s&oacute;lo relacionan entradas con salidas. No poseen ning&uacute;na 
 vaca super poderosa como <tt>doble</tt>.</p>
 
 <p class="problem">Definir una funci&oacute;n llamada <tt>sumarUno</tt> que parece 
 que solo retorna su argumento mas uno, pero secretamente cambia <tt>vaca</tt>
-a <tt>"hamburgesa"</tt>.</p>
+a <tt>"hamburguesa"</tt>.</p>
 {% endblock description %}
 
 {% block jsoptions %}
@@ -45,12 +45,12 @@ test_prelude = 'var vaca = "purpura";';
 add_bool_test('myTypeOf(sumarUno) === "function"', 'sumarUno es una funcion');
 add_assert_test('vaca', '"purpura"');
 add_assert_test('sumarUno(2)', '3');
-add_assert_test('vaca', '"hamburgesa"');
+add_assert_test('vaca', '"hamburguesa"');
 {% endblock %}
 
 {#
 var sumarUno = function (x) {
-    vaca = "hamburgesa";
+    vaca = "hamburguesa";
     return x + 1;
 };
 #}

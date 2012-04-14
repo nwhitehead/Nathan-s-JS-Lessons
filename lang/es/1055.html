@@ -4,14 +4,14 @@
 
 {% block description %}
 <p>
-Muchos lenguajes tiene <i>alcance de bloque (block scope)</i>, lo que significa que una variable
+Muchos lenguajes tiene <i>alcance por bloque (block scope)</i>, lo que significa que una variable
 declarada al inicio de un bloque por ejemplo un <tt>if</tt> o un ciclo <tt>for</tt>  
 son v&aacute;lidas dentro de ese bloque.  JavaScript es un poco diferente, todas las variables
 tienen un <i>alcance de funci&oacute;n (function scope)</i>.</p>
 
 <p>Esto significa que <i>todas</i> las variables declaradas en una funci&oacute;n
-est&aacute;n disponibles en cualquier lugar de la functi&oacute;n.  Ac&aacute; est&aacute; un ejemplo
-que muestra como esto puede ser un poco sorpresivo.</p>
+est&aacute;n disponibles en cualquier lugar de la functi&oacute;n.  El siguiente ejemplo
+ muestra como esto puede ser un poco sorpresivo.</p>
 
 <textarea class="demo">var vaca = "purpura"; // una vaca aleatoria
 
@@ -33,7 +33,7 @@ dentro del bloque <tt>if</tt> aplica a <i>toda la funci&oacute;n</i>.
 Esto significa que <tt>vaca</tt> es una variable local para toda la funci&oacute;n.
 </p>
 
-<p>Para satisfacer tus curiosidades morbosas de la especie bovina, ac&aacute; est&acute; la version donde <i>realmente</i>
+<p>Para satisfacer tus curiosidades morbosas de la especie bovina, en esta version <i>realmente</i>
 convierte la <tt>vaca</tt> en <tt>pegamento</tt>.</p>
 
 <textarea class="demo">var vaca = "purpura"; // una vaca aleatoria
@@ -51,7 +51,7 @@ var z = f(2); // pobre vaca</textarea>
 
 <p>Por este tipo de comportamiento sorpresivo, cuando escribas una funci&oacute;n
 deber&iacute;as siempre declarar todas tus variables justo al inicio asi
-no te confundis. Ac&aacute; hay otro ejemplo que declara variables
+no te confundis. Un ejemplo que declara variables
 al inicio.</p>
 
 <textarea class="demo">var mean = function (a, b) {
