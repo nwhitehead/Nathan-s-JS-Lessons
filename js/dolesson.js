@@ -82,39 +82,18 @@ $(function() {
     // Create user editor area
     cm_options.onCursorActivity = function () {
         var pos = myeditor.getCursor();
-        $('#cursor').html((pos.line + 1) + ':' + (pos.ch + 1)); 
+        $('#cursor').html((pos.line + 1) + ':' + (pos.ch + 1));
     };
     var myeditor = CodeMirror.fromTextArea(document.getElementById('code'), cm_options);
     myeditor.setValue(default_code);
 
-    // Run JSLINT on some input and organize results
+    // Run jslint on some input and organize results
     function lint_check(txt) {
-        var lint_result = JSLINT(txt, jslint_options);
-        var lint_data = JSLINT.data();
-        var lint_unused = lint_data.unused;
-        var lint_globals = lint_data.globals;
-        var lint_errors = lint_data.errors;
-        if (typeof lint_unused === 'undefined') {
-            lint_unused = [];
+        var lint_result = jslint(txt, jslint_options);
+
+        return {
+            result: lint_result
         }
-        if (typeof lint_errors === 'undefined') {
-            lint_errors = [];
-        }
-        // jslint_unused is global option
-        //   0 ignore unused variables
-        //   1 show warnings for unused variables
-        //   2 show errors for unused variables
-        if ((jslint_unused > 1) && lint_unused.length > 0) {
-            lint_result = false;
-        }
-        var res = {
-            result: lint_result,
-            globals: lint_globals,
-            errors: lint_errors,
-            unused: lint_unused,
-            error_report: JSLINT.report(true)
-        };
-        return res;
     }
 
     //// The console is for testing output about user program
@@ -235,14 +214,6 @@ $(function() {
                 }
             }
             all_passed = false;
-        }
-        // Log unused variable warnings/errors
-        if ((jslint_unused > 0) && lint_result.unused.length > 0) {
-            for(i = 0; i < lint_result.unused.length; i++) {
-                var un = lint_result.unused[i];
-                console_log("<p>" + status((jslint_unused < 2) ? 3 : 4) + 
-                    unused_msg(un) + "</p>");
-            }
         }
         // Show JSLint summary
         if(lint_result.result) {
