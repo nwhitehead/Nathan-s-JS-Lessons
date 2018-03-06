@@ -19,9 +19,7 @@ const langMiddleware = (req, res, next) => {
 
 app.use(langMiddleware);
 
-app.use('/gfx', express.static(`${__dirname}/gfx`));
-app.use('/css', express.static(`${__dirname}/css`));
-app.use('/js', express.static(`${__dirname}/js`));
+app.use('/', express.static(`${__dirname}/public`));
 
 app.get('/', async (req, res) => {
   res.redirect('/lesson');
