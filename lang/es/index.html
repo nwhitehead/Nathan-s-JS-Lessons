@@ -35,12 +35,6 @@ type='text/javascript'></script>
 {% block header %}
 <div class="topblock">
     <img src="/gfx/logo2.png" class="logo" />
-    {% if user %}
-        <p class="top">{{ user.nickname }}
-        [<a href="{{ logout }}"><b>salir</b></a>]</p>
-    {% else %}
-        <p class="top">[<a href="{{ login }}"><b>ingresar</b></a>]</p>
-    {% endif %}
 </div>
 <div class="scissors">
 </div>
