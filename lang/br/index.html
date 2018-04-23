@@ -35,12 +35,6 @@ type='text/javascript'></script>
 {% block header %}
 <div class="topblock">
     <img src="/gfx/logo2.png" class="logo" />
-    {% if user %}
-        <p class="top">{{ user.nickname }}
-        [<a href="{{ logout }}"><b>sign out</b></a>]</p>
-    {% else %}
-        <p class="top">[<a href="{{ login }}"><b>sign in</b></a>]</p>
-    {% endif %}
 </div>
 <div class="scissors">
 </div>
@@ -50,18 +44,18 @@ type='text/javascript'></script>
     <div class="leftside">
 <p>What's a Closure?
 <ol>
-    <li><a href="/lesson?id=1000">What's a Closure?</a></li>
-    <li><a href="/lesson?id=1010">Variables and Values</a></li>
-    <li><a href="/lesson?id=1020">Defining Functions</a></li>
-    <li><a href="/lesson?id=1030">Side Effects</a></li>
-    <li><a href="/lesson?id=1040">Functions are Values</a></li>
-    <li><a href="/lesson?id=1050">Returning Functions</a></li>
-    <li><a href="/lesson?id=1055">Function Scope</a></li>
-    <li><a href="/lesson?id=1060">Nested Functions</a></li>
-    <li><a href="/lesson?id=1070">Stateful Closures</a></li>
-    <li><a href="/lesson?id=1080">Private Data</a></li>
-    <li><a href="/lesson?id=1085">Asynchronous Callbacks</a></li>
-    <li><a href="/lesson?id=1090">Continuation Passing</a></li>
+    <li><a href="/lesson?id=1000&lang=br">O que é Closure?</a></li>
+    <li><a href="/lesson?id=1010&lang=br">Variáveis e valores</a></li>
+    <li><a href="/lesson?id=1020&lang=br">Definindo funções</a></li>
+    <li><a href="/lesson?id=1030&lang=br">Efeitos paralelos</a></li>
+    <li><a href="/lesson?id=1040&lang=br">Funções são valores</a></li>
+    <li><a href="/lesson?id=1050&lang=br">Retornando funções</a></li>
+    <li><a href="/lesson?id=1055&lang=br">Escopo da função</a></li>
+    <li><a href="/lesson?id=1060&lang=br">Funções aninhadas</a></li>
+    <li><a href="/lesson?id=1070&lang=br">Cada Closures com seu estado</a></li>
+    <li><a href="/lesson?id=1080&lang=br">Dados Privados</a></li>
+    <li><a href="/lesson?id=1085&lang=br">Callbacks assíncronos</a></li>
+    <li><a href="/lesson?id=1090&lang=br">Passando uma continuação</a></li>
 </ol>
 </p>
     </div>

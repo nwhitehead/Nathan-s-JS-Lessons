@@ -1,0 +1,26 @@
+{
+  "name": "nathan-s-js-lessons",
+  "version": "1.0.0",
+  "description":
+    "Nathan's Lessons Interactive Tutorials ======================================",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwhitehead/Nathan-s-JS-Lessons.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nwhitehead/Nathan-s-JS-Lessons/issues"
+  },
+  "homepage": "https://github.com/nwhitehead/Nathan-s-JS-Lessons#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-async-errors": "^2.1.2",
+    "nunjucks": "^3.1.2"
+  }
+}
